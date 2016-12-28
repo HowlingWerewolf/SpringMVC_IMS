@@ -19,4 +19,5 @@ public class InventoryControllerTest extends TestCase {
         String nowValue = (String) modelMap.get("now");
         assertNotNull(nowValue);
     }
+    
 }

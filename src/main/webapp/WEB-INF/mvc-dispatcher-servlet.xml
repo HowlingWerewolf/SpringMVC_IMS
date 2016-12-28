@@ -47,5 +47,7 @@
         <property name="prefix" value="/WEB-INF/pages/"></property>
         <property name="suffix" value=".jsp"></property>        
     </bean>
+    
+    <bean id="priceIncrease" class="springmvc_ims.service.PriceIncrease" />
 
 </beans>
