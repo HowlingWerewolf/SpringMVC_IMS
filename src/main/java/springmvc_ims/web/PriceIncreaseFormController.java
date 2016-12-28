@@ -51,23 +51,20 @@ public class PriceIncreaseFormController {
     public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
-    	// TODO: this needs to be solved. How can Spring render an error message?
         if(result.hasErrors()) {
-            logger.info("I know something is not ok with the PI, even if I cannot handle it.");
-            Map<String, Object> myModel = new HashMap<String, Object>();
+            logger.info("I know something is not ok with the PI. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
                 logger.info(error.getDefaultMessage());           	
             }
-            myModel.put("error", result.getAllErrors().get(0).getDefaultMessage()); 
-            return new ModelAndView(new RedirectView("priceincrease"), "model", myModel);
+            return null;
         }
 
         int increase = ((PriceIncrease) command).getPercentage();
         logger.info("Increasing prices by " + increase + "%.");
         productManager.increasePrice(increase);
 
-        logger.info("returning from PriceIncreaseForm");
-
+        logger.info("returning from PriceIncreaseForm");	
+        
         return new ModelAndView(new RedirectView("hello"));
     }
 
