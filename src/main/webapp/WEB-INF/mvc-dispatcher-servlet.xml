@@ -49,5 +49,6 @@
     </bean>
     
 
+    <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
 
 </beans>

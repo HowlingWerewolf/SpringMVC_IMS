@@ -1,13 +1,25 @@
 package springmvc_ims.web;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +38,30 @@ public class PriceIncreaseFormController {
     @Autowired
     private ProductManager productManager;
     
-    @RequestMapping(method = RequestMethod.POST) 
-    public ModelAndView onSubmit(@ModelAttribute("priceincrease") PriceIncrease command)
-            throws ServletException {
+    @Autowired
+	@Qualifier("priceIncreaseValidator")
+	private Validator validator;
+    
+    @InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}
 
-        logger.info("Command received: " + command);
+    @RequestMapping(method = RequestMethod.POST) 
+    public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
+            throws ServletException {
+        
+    	// TODO: this needs to be solved. How can Spring render an error message?
+        if(result.hasErrors()) {
+            logger.info("I know something is not ok with the PI, even if I cannot handle it.");
+            Map<String, Object> myModel = new HashMap<String, Object>();
+            for (ObjectError error : result.getAllErrors()) {
+                logger.info(error.getDefaultMessage());           	
+            }
+            myModel.put("error", result.getAllErrors().get(0).getDefaultMessage()); 
+            return new ModelAndView(new RedirectView("priceincrease"), "model", myModel);
+        }
+
         int increase = ((PriceIncrease) command).getPercentage();
         logger.info("Increasing prices by " + increase + "%.");
         productManager.increasePrice(increase);
@@ -48,7 +79,7 @@ public class PriceIncreaseFormController {
     }
     
     @RequestMapping(value = "/priceincrease", method = RequestMethod.GET) 
-    public String displayLogin(Model model) { 
+    public String displayLogin(Model model) {     	
 	   
 	   	// very special thanks to this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request
         model.addAttribute("priceincrease", new PriceIncrease()); 

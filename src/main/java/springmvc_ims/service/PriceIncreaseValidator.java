@@ -20,6 +20,7 @@ public class PriceIncreaseValidator implements Validator {
     }
 
     public void validate(Object obj, Errors errors) {
+    	logger.info("Validation started!");
         PriceIncrease pi = (PriceIncrease) obj;
         if (pi == null) {
             errors.rejectValue("percentage", "error.not-specified", null, "Value required.");
