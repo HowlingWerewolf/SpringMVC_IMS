@@ -9,7 +9,7 @@
 	<name>SpringMVC_IMS</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<javax.version>3.1.0</javax.version>
 		<jstl.version>1.2</jstl.version>
@@ -18,16 +18,21 @@
 		<jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
-		<!-- Unit Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 		</dependency>
 
-		<!-- Spring Core -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -64,7 +69,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -82,6 +86,19 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.1.0.Final</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>5.2.5.Final</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>9.1-901-1.jdbc4</version>
+		</dependency>	
+		
 	</dependencies>
 
 	<build>

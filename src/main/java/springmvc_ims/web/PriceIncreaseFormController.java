@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import springmvc_ims.db.DB;
 import springmvc_ims.service.PriceIncrease;
 import springmvc_ims.service.ProductManager;
 
@@ -56,6 +57,8 @@ public class PriceIncreaseFormController {
             for (ObjectError error : result.getAllErrors()) {
                 logger.info(error.getDefaultMessage());           	
             }
+            DB db = new DB();
+            db.initDB();
             return null;
         }
 

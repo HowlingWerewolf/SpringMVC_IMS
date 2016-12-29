@@ -1,0 +1,5 @@
+<persistence-unit name="testPU">
+  <properties>
+    <property name="hibernate.id.new_generator_mappings">false</property>
+  </properties>
+</persistence-unit>
