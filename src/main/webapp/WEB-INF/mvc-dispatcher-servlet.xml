@@ -7,32 +7,12 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="springmvc_ims.web" />
+<!-- 	<context:component-scan base-package="springmvc_ims.web" /> -->
+	<context:component-scan base-package="springmvc_ims" />
     
-    <bean id="productManager" class="springmvc_ims.service.SimpleProductManager">
-        <property name="products">
-            <list>
-                <ref bean="product1"/>
-                <ref bean="product2"/>
-                <ref bean="product3"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="product1" class="springmvc_ims.model.Product">
-        <property name="description" value="Lamp"/>
-        <property name="price" value="5.75"/>
-    </bean>
-        
-    <bean id="product2" class="springmvc_ims.model.Product">
-        <property name="description" value="Table"/>
-        <property name="price" value="75.25"/>
-    </bean>
-
-    <bean id="product3" class="springmvc_ims.model.Product">
-        <property name="description" value="Chair"/>
-        <property name="price" value="22.79"/>
-    </bean>
+    <bean id="db" class="springmvc_ims.db.DB" />
+    <bean id="productDao" class="springmvc_ims.dao.ProductDao" />
+    <bean id="productManager" class="springmvc_ims.service.SimpleProductManager" />
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages"/>
@@ -47,8 +27,5 @@
 
     <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
     
-    <bean id="db" class="springmvc_ims.db.DB" />
-    
-    <bean id="productDao" class="springmvc_ims.dao.ProductDao" />
 
 </beans>

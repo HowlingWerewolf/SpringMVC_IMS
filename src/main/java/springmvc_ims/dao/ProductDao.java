@@ -25,12 +25,19 @@ public class ProductDao extends Dao {
         }
 	}
 
+	@Override
     public List<Product> queryAllAsList() {
         logger.info("Getting products!");
-		List<Product> products = (List<Product>) db.query("FROM Product");
+        List<Product> products = null;
+        try {
+        	products = (List<Product>) db.query("FROM Product");
+		} catch (NullPointerException ex) {
+	        logger.info("ProductDao: NPE!");
+		}
         return products;
     }
 
+	@Override
     public void save(Object product) {
     	db.saveProduct((Product) product);
     }
