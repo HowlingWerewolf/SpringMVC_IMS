@@ -1,10 +1,5 @@
 package springmvc_ims.web;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -26,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.db.DB;
+import springmvc_ims.dao.ProductDao;
 import springmvc_ims.service.PriceIncrease;
 import springmvc_ims.service.ProductManager;
 
@@ -42,6 +37,9 @@ public class PriceIncreaseFormController {
     @Autowired
 	@Qualifier("priceIncreaseValidator")
 	private Validator validator;
+
+    @Autowired
+    private ProductDao productDao;
     
     @InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -57,8 +55,7 @@ public class PriceIncreaseFormController {
             for (ObjectError error : result.getAllErrors()) {
                 logger.info(error.getDefaultMessage());           	
             }
-            DB db = new DB();
-            db.initDB();
+            productDao.testDB();
             return null;
         }
 

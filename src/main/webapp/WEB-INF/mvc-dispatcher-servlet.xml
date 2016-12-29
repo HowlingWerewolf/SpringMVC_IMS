@@ -37,10 +37,6 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages"/>
     </bean>
-
-<!--     <bean name="/hello.htm" class="springmvc_ims.web.InventoryController">
-        <property name="productManager" ref="productManager"/>
-    </bean> -->
     
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
@@ -50,5 +46,9 @@
     
 
     <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
+    
+    <bean id="db" class="springmvc_ims.db.DB" />
+    
+    <bean id="productDao" class="springmvc_ims.dao.ProductDao" />
 
 </beans>
