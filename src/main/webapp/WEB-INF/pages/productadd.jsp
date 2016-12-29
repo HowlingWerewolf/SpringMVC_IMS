@@ -17,9 +17,15 @@
 		<td width="20%">
 		  <form:input path="description"/>
 		</td>
+		<td width="20%">
+		  <form:errors path="description" cssClass="error"/>
+		</td>
 		<td align="right" width="20%">Price:</td>
 		<td width="20%">
 		  <form:input path="price"/>
+		</td>
+		<td width="20%">
+		  <form:errors path="price" cssClass="error"/>
 		</td>
     </tr>
   </table>

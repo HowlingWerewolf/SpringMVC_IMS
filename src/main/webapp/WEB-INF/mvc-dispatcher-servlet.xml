@@ -26,5 +26,7 @@
     </bean>
     
     <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
+    
+    <bean id="productValidator" class="springmvc_ims.service.ProductValidator" />
 
 </beans>
