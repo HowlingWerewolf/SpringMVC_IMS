@@ -1,8 +1,10 @@
 package springmvc_ims.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,48 +24,38 @@ import springmvc_ims.model.Product;
 import springmvc_ims.service.ProductManager;
 
 @Controller
-public class ProductAddFormController {
+public class ProductDeleteController {
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
 
     @Autowired
     private ProductManager productManager;
-    
-    // TODO: validator
-//    @Autowired
-//	@Qualifier("priceIncreaseValidator")
-//	private Validator validator;
 
     @Autowired
     private ProductDao productDao;
-    
-//    @InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		binder.setValidator(validator);
-//	}
 
     @RequestMapping(method = RequestMethod.POST) 
-    public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
+    public ModelAndView onSubmit(@ModelAttribute("productdelete") Product command, BindingResult result)
             throws ServletException {
         
         if(result.hasErrors()) {
-            logger.info("I know something is not ok with the PI. Errors below:");
+            logger.info("I know something is not ok. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
                 logger.info(error.getDefaultMessage());           	
             }            
             return null;
         }
 
+        int id = ((Product) command).getId();
         String description = ((Product) command).getDescription();
         Double price = ((Product) command).getPrice();
         
-        logger.info("adding to DB this product: " + description + " with price " + price);
+        logger.info("deleting from DB this product: " + description + " with price " + price + " with ID " + id);
         
-        
-        productDao.save(command);
+        productDao.delete(command);
 
-        logger.info("returning from ProductDeleteController");	
+        logger.info("returning from PriceIncreaseForm");	
         
         return new ModelAndView(new RedirectView("hello"));
     }
@@ -71,15 +63,23 @@ public class ProductAddFormController {
     protected Object formBackingObject(HttpServletRequest request) throws ServletException {
         Product product = new Product();
         product.setDescription("dummy");
-        product.setPrice(1.0d);
-        logger.info("productadd object set with " + product.getDescription() + " with price " + product.getPrice());
+        product.setPrice(-1.0d);
+        logger.info("productdelete object set with " + product.getDescription() + " with price " + product.getPrice());
         return product;
     }
     
-    @RequestMapping(value = "/productadd", method = RequestMethod.GET) 
-    public String displayLogin(Model model) {     
-	   	model.addAttribute("productadd", new Product()); 
-        return "productadd"; 
+    @RequestMapping(value = "/productdelete", method = RequestMethod.GET) 
+    public ModelAndView displayLogin(Model model) {     	
+	   
+	   	model.addAttribute("productdelete", new Product()); 
+        String now = (new java.util.Date()).toString();
+        logger.info("returning productdelete view with " + now);
+
+        Map<String, Object> myModel = new HashMap<String, Object>();
+        myModel.put("now", now);
+        myModel.put("products", this.productManager.getProducts());
+
+        return new ModelAndView("productdelete", "model", myModel);
     }
 
     public void setProductManager(ProductManager productManager) {

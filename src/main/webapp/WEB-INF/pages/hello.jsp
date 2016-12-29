@@ -15,5 +15,8 @@
     <br>
     <a href="<c:url value="productadd.htm"/>">Add Product</a>
     <br>
+    <br>
+    <a href="<c:url value="productdelete.htm"/>">Delete Product</a>
+    <br>
   </body>
 </html>

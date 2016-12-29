@@ -5,13 +5,16 @@ import java.util.Map;
 import org.springframework.web.servlet.ModelAndView;
 
 import junit.framework.TestCase;
+import springmvc_ims.dao.testing.InMemoryProductDao;
 import springmvc_ims.service.SimpleProductManager;
 
 public class InventoryControllerTest extends TestCase {
 
     public void testHandleRequestView() throws Exception{
         InventoryController controller = new InventoryController();
-        controller.setProductManager(new SimpleProductManager());
+        SimpleProductManager manager = new SimpleProductManager();
+        manager.setProductDao(new InMemoryProductDao(null));
+        controller.setProductManager(manager);
         ModelAndView modelAndView = controller.handleRequest(null, null);
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());

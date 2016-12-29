@@ -1,26 +1,15 @@
 package springmvc_ims.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.hibernate.Session;
 
-import springmvc_ims.model.Product;
-
 public class DB {
 	
 	static Session session;
-	
-	public DB() {
-		initSession();
-	}
-	
-	@Override
-	protected void finalize() throws Throwable {
-		closeSession();
-		super.finalize();
-	}
 	
 	public void initSession() {
 		session = HibernateUtil.getSessionFactory().openSession();	
@@ -29,15 +18,31 @@ public class DB {
 	public void closeSession() {
     	session.close();
 	}
-	
-	public void saveProduct(Product product) {
-		save(product);
-	}
 
 	public void save(Object o) {
-		session.beginTransaction();	
-		session.save(o);
-		session.getTransaction().commit();
+		System.out.println("Saving...");
+		initSession();
+		
+		try {
+			session.beginTransaction();	
+			session.save(o);
+			session.getTransaction().commit();
+		} finally {
+			closeSession();
+		}
+	}
+
+	public void delete(Object o) {
+		System.out.println("Deleting...");
+		initSession();
+		
+		try {
+			session.beginTransaction();	
+			session.delete(o);
+			session.getTransaction().commit();
+		} finally {
+			closeSession();
+		}
 	}
 	
 	public Session getSession() {
@@ -52,14 +57,24 @@ public class DB {
         } catch (Exception ex) {
         	System.out.println(ex.getMessage());
         	System.out.println(ex.getStackTrace());
-        } 
+        }
 		
 		return list;
 	}
 	
 	private List<?> createQuery(String queryString) {	
-    	Query query = session.createQuery(queryString);
-    	List<?> list = query.getResultList();	
+		initSession();
+    	List<?> list = new ArrayList<>();	
+    	
+		try {
+	    	Query query = session.createQuery(queryString);
+	    	list = query.getResultList();
+    	} catch (Exception ex) {
+        	System.out.println(ex.getMessage());
+        	System.out.println(ex.getStackTrace()); 
+        } finally {
+			closeSession();
+		}
     	return list;
 	}
 	

@@ -17,7 +17,7 @@ public class ProductDao extends Dao {
 		product.setDescription("Test");
 		product.setPrice(1.0d);
 
-		db.saveProduct(product);
+		db.save(product);
 		
 		List<Product> list = queryAllAsList();
         for(Product p : list) {
@@ -39,7 +39,12 @@ public class ProductDao extends Dao {
 
 	@Override
     public void save(Object product) {
-    	db.saveProduct((Product) product);
+    	db.save((Product) product);
     }
+
+	@Override
+	public void delete(Object product) {
+		db.delete((Product) product);
+	}
     
 }

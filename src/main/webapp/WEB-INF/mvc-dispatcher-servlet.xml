@@ -7,11 +7,12 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- 	<context:component-scan base-package="springmvc_ims.web" /> -->
 	<context:component-scan base-package="springmvc_ims" />
     
     <bean id="db" class="springmvc_ims.db.DB" />
+    
     <bean id="productDao" class="springmvc_ims.dao.ProductDao" />
+    
     <bean id="productManager" class="springmvc_ims.service.SimpleProductManager" />
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -24,8 +25,6 @@
         <property name="suffix" value=".jsp"></property>        
     </bean>
     
-
     <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
-    
 
 </beans>
