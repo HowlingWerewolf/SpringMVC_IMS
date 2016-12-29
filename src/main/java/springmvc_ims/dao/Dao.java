@@ -14,5 +14,6 @@ public abstract class Dao {
     public abstract List<?> queryAllAsList();
     public abstract void save(Object product);
     public abstract void delete(Object product);
+	public abstract void update(Object product);
     
 }

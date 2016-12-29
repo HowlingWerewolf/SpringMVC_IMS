@@ -44,6 +44,19 @@ public class DB {
 			closeSession();
 		}
 	}
+
+	public void update(Object o) {
+		System.out.println("Saving...");
+		initSession();
+		
+		try {
+			session.beginTransaction();	
+			session.update(o);
+			session.getTransaction().commit();
+		} finally {
+			closeSession();
+		}
+	}
 	
 	public Session getSession() {
 		return session;

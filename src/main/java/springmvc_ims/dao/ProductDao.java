@@ -46,5 +46,10 @@ public class ProductDao extends Dao {
 	public void delete(Object product) {
 		db.delete((Product) product);
 	}
+
+	@Override
+	public void update(Object product) {
+		db.update((Product) product);
+	}
     
 }

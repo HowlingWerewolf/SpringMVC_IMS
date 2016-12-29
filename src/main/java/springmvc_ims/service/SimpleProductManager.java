@@ -28,7 +28,7 @@ public class SimpleProductManager implements ProductManager {
                 double newPrice = product.getPrice().doubleValue() * 
                                     (100 + percentage)/100;
                 product.setPrice(newPrice);
-                productDao.save(product);
+                productDao.update(product);
             }
         }
     }
