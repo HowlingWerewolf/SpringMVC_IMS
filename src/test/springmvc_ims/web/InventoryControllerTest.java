@@ -10,7 +10,7 @@ import springmvc_ims.service.SimpleProductManager;
 
 public class InventoryControllerTest extends TestCase {
 
-    public void testHandleRequestView() throws Exception{
+    public void testHandleRequestView() throws Exception {
         InventoryController controller = new InventoryController();
         SimpleProductManager manager = new SimpleProductManager();
         manager.setProductDao(new InMemoryProductDao(null));
