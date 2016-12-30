@@ -17,4 +17,4 @@ Prerequirements:
 
   Also make sure, that you installed Tomcat application server. I used version 8.5.9.
 
-  In order to use selenium, install it to firefox, then create c:/selenium folder.
+  In order to use selenium, install it to Firefox, then create 'c:/selenium' folder.
