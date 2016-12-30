@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.service.PriceIncrease;
+import springmvc_ims.model.form.PriceIncrease;
 import springmvc_ims.service.ProductManager;
 
 @Controller

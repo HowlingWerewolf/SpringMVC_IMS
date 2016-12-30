@@ -25,8 +25,8 @@
         <property name="suffix" value=".jsp"></property>        
     </bean>
     
-    <bean id="priceIncreaseValidator" class="springmvc_ims.service.PriceIncreaseValidator" />
+    <bean id="priceIncreaseValidator" class="springmvc_ims.model.validator.PriceIncreaseValidator" />
     
-    <bean id="productValidator" class="springmvc_ims.service.ProductValidator" />
+    <bean id="productValidator" class="springmvc_ims.model.validator.ProductValidator" />
 
 </beans>
