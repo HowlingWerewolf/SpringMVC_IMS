@@ -22,4 +22,12 @@ public class InMemoryProductDao extends ProductDao {
     public void save(Object product) {
     }
 
+    @Override
+    public void update(Object product) {
+    }
+
+    @Override
+    public void delete(Object product) {
+    }
+
 }
