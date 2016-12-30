@@ -1,6 +1,7 @@
 # SpringMVC_IMS
 
 This application based on the Spring tutorial: https://docs.spring.io/docs/Spring-MVC-step-by-step/part3.html
+
 Please note that I not tightly followed the instructions:
   - new Spring versions does not support SimpleFormController and SimpleJdbcDaoSupport
   - instead of Ant, I use Apache Maven 3.3.9
