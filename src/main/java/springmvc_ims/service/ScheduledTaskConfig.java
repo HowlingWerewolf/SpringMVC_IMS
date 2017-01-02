@@ -20,6 +20,6 @@ public class ScheduledTaskConfig {
     	logger.info(new Date() + ": Hello:)");
     	logger.info("An info message. This should be written both to console and log file.");
     	logger.debug("A debug message. This should be written only to log file.");
-    	logger.error("An error message. This should be written both to console and error log file.");
+    	logger.error("An error message. This should be written both to console, log file and error log file.");
     }
 }
