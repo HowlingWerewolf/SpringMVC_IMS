@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import springmvc_ims.model.Product;
+import springmvc_ims.repository.model.Product;
 
 public class ProductValidator implements Validator {
 

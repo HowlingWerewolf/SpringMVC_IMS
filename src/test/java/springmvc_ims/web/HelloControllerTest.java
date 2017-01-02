@@ -3,6 +3,7 @@ package springmvc_ims.web;
 import org.springframework.web.servlet.ModelAndView;
 
 import junit.framework.TestCase;
+import springmvc_ims.web.controller.HelloController;
 
 public class HelloControllerTest extends TestCase {
 

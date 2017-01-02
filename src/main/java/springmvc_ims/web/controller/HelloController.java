@@ -1,4 +1,4 @@
-package springmvc_ims.web;
+package springmvc_ims.web.controller;
 
 import java.io.IOException;
 import java.util.Date;

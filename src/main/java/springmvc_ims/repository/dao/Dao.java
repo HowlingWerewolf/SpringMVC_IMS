@@ -1,10 +1,10 @@
-package springmvc_ims.dao;
+package springmvc_ims.repository.dao;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import springmvc_ims.db.DB;
+import springmvc_ims.repository.db.DB;
 
 public abstract class Dao {
 

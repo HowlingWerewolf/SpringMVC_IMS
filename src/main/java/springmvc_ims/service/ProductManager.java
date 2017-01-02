@@ -1,9 +1,9 @@
-package springmvc_ims.web.service;
+package springmvc_ims.service;
 
 import java.io.Serializable;
 import java.util.List;
 
-import springmvc_ims.model.Product;
+import springmvc_ims.repository.model.Product;
 
 public interface ProductManager extends Serializable {
 

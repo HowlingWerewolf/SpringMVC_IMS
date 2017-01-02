@@ -15,8 +15,7 @@
 	<property name="hibernate.format_sql">true</property>
 	<property name="hibernate.jdbc.use_get_generated_keys">true</property>
 	<property name="show_sql">true</property>
-    <!-- <property name="log4j.logger.org.hibernate.type">DEBUG</property>	 -->
   	<property name="javax.persistence.validation.mode">none</property>
-    <mapping class="springmvc_ims.model.Product"></mapping>
+    <mapping class="springmvc_ims.repository.model.Product"></mapping>
   </session-factory>
 </hibernate-configuration>

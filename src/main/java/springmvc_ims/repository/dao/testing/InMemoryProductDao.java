@@ -1,9 +1,9 @@
-package springmvc_ims.dao.testing;
+package springmvc_ims.repository.dao.testing;
 
 import java.util.List;
 
-import springmvc_ims.dao.ProductDao;
-import springmvc_ims.model.Product;
+import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.model.Product;
 
 public class InMemoryProductDao extends ProductDao {
 

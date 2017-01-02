@@ -1,4 +1,4 @@
-package springmvc_ims.model;
+package springmvc_ims.repository.model;
 
 import java.io.Serializable;
 

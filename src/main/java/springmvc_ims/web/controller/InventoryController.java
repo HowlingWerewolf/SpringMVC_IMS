@@ -1,4 +1,4 @@
-package springmvc_ims.web;
+package springmvc_ims.web.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import springmvc_ims.web.service.ProductManager;
+import springmvc_ims.service.ProductManager;
 
 @Controller
 public class InventoryController {

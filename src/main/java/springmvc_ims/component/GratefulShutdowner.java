@@ -1,4 +1,4 @@
-package springmvc_ims.web.service;
+package springmvc_ims.component;
 
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.stereotype.Component;
 
-import springmvc_ims.db.HibernateUtil;
+import springmvc_ims.repository.db.HibernateUtil;
 
 @Component
 public class GratefulShutdowner implements ApplicationListener<ContextClosedEvent> {

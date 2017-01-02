@@ -1,6 +1,7 @@
 package springmvc_ims.model;
 
 import junit.framework.TestCase;
+import springmvc_ims.repository.model.Product;
 
 public class ProductTest extends TestCase {
 

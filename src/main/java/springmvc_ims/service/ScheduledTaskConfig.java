@@ -7,14 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 @Configuration
 @EnableScheduling
+@Service
 public class ScheduledTaskConfig {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Scheduled(fixedRate=120000)
+    @Scheduled(fixedRate=60000)
     public void work() {
     	System.out.println(new Date() + ": Hello:)");
     	logger.info(new Date() + ": Hello:)");

@@ -7,13 +7,13 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="springmvc_ims.web" />
+	<context:component-scan base-package="springmvc_ims.web.controller" />
     
-    <bean id="db" class="springmvc_ims.db.DB" />
+    <bean id="db" class="springmvc_ims.repository.db.DB" />
     
-    <bean id="productDao" class="springmvc_ims.dao.ProductDao" />
+    <bean id="productDao" class="springmvc_ims.repository.dao.ProductDao" />
     
-    <bean id="productManager" class="springmvc_ims.web.service.SimpleProductManager" />
+    <bean id="productManager" class="springmvc_ims.service.SimpleProductManager" />
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages"/>
@@ -30,5 +30,7 @@
     <bean id="productValidator" class="springmvc_ims.web.validator.ProductValidator" />
     
     <bean id="scheduledTaskConfig" class="springmvc_ims.service.ScheduledTaskConfig" />
+    
+    <bean id="gratefulShutdowner" class="springmvc_ims.component.GratefulShutdowner" />
 
 </beans>

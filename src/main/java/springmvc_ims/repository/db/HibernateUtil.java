@@ -1,8 +1,10 @@
-package springmvc_ims.db;
+package springmvc_ims.repository.db;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class HibernateUtil {
 
 	private static final SessionFactory sessionFactory = buildSessionFactory();

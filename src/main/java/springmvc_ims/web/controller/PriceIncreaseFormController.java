@@ -1,4 +1,4 @@
-package springmvc_ims.web;
+package springmvc_ims.web.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.dao.ProductDao;
-import springmvc_ims.model.Product;
-import springmvc_ims.web.service.ProductManager;
+import springmvc_ims.service.ProductManager;
+import springmvc_ims.web.form.PriceIncrease;
 
 @Controller
-public class ProductAddFormController {
+public class PriceIncreaseFormController {
 
     /** Logger for this class and subclasses */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -35,11 +34,8 @@ public class ProductAddFormController {
     private ProductManager productManager;
     
     @Autowired
-	@Qualifier("productValidator")
+	@Qualifier("priceIncreaseValidator")
 	private Validator validator;
-
-    @Autowired
-    private ProductDao productDao;
     
     @InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -47,39 +43,39 @@ public class ProductAddFormController {
 	}
 
     @RequestMapping(method = RequestMethod.POST) 
-    public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
+    public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
         if(result.hasErrors()) {
             logger.info("I know something is not ok with the PI. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
                 logger.info(error.getDefaultMessage());           	
-            }            
+            }
             return null;
         }
 
-        String description = ((Product) command).getDescription();
-        Double price = ((Product) command).getPrice();
-        
-        logger.info("adding to DB this product: " + description + " with price " + price);        
-        productDao.save(command);
-        logger.info("returning from ProductDeleteController");	
+        int increase = ((PriceIncrease) command).getPercentage();
+        logger.info("Increasing prices by " + increase + "%.");
+        productManager.increasePrice(increase);
+
+        logger.info("returning from PriceIncreaseForm");	
         
         return new ModelAndView(new RedirectView("hello"));
     }
 
     protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-        Product product = new Product();
-        product.setDescription("dummy");
-        product.setPrice(1.0d);
-        logger.info("productadd object set with " + product.getDescription() + " with price " + product.getPrice());
-        return product;
+        PriceIncrease priceIncrease = new PriceIncrease();
+        priceIncrease.setPercentage(20);
+        logger.info("priceincrease object set with " + priceIncrease.getPercentage() + "%");
+        return priceIncrease;
     }
     
-    @RequestMapping(value = "/productadd", method = RequestMethod.GET) 
-    public String displayLogin(Model model) {     
-	   	model.addAttribute("productadd", new Product()); 
-        return "productadd"; 
+    @RequestMapping(value = "/priceincrease", method = RequestMethod.GET) 
+    public String displayLogin(Model model) {     	
+	   
+	   	// very special thanks to this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request
+        model.addAttribute("priceincrease", new PriceIncrease()); 
+        return "priceincrease"; 
     }
 
     public void setProductManager(ProductManager productManager) {

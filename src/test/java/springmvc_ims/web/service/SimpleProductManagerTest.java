@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import springmvc_ims.dao.ProductDao;
-import springmvc_ims.dao.testing.InMemoryProductDao;
-import springmvc_ims.model.Product;
+import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.dao.testing.InMemoryProductDao;
+import springmvc_ims.repository.model.Product;
+import springmvc_ims.service.SimpleProductManager;
 
 public class SimpleProductManagerTest extends TestCase {
 
