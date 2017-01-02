@@ -2,8 +2,8 @@ package springmvc_ims.web.service;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import springmvc_ims.dao.ProductDao;
@@ -11,7 +11,7 @@ import springmvc_ims.model.Product;
 
 public class SimpleProductManager implements ProductManager {
 
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
     private ProductDao productDao;

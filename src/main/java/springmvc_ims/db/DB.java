@@ -6,8 +6,12 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DB {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	static Session session;
 	
@@ -20,7 +24,7 @@ public class DB {
 	}
 
 	public void save(Object o) {
-		System.out.println("Saving...");
+		logger.debug("Saving...");
 		initSession();
 		
 		try {
@@ -33,7 +37,7 @@ public class DB {
 	}
 
 	public void delete(Object o) {
-		System.out.println("Deleting...");
+		logger.debug("Deleting...");
 		initSession();
 		
 		try {
@@ -46,7 +50,7 @@ public class DB {
 	}
 
 	public void update(Object o) {
-		System.out.println("Saving...");
+		logger.debug("Saving...");
 		initSession();
 		
 		try {
@@ -68,8 +72,7 @@ public class DB {
 		try {
 			list = createQuery(queryString);
         } catch (Exception ex) {
-        	System.out.println(ex.getMessage());
-        	System.out.println(ex.getStackTrace());
+        	logger.debug(ex.getMessage());
         }
 		
 		return list;
@@ -83,8 +86,7 @@ public class DB {
 	    	Query query = session.createQuery(queryString);
 	    	list = query.getResultList();
     	} catch (Exception ex) {
-        	System.out.println(ex.getMessage());
-        	System.out.println(ex.getStackTrace()); 
+        	logger.debug(ex.getMessage());
         } finally {
 			closeSession();
 		}

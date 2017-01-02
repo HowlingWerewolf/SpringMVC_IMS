@@ -1,7 +1,7 @@
 package springmvc_ims.web.validator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -13,7 +13,7 @@ public class ProductValidator implements Validator {
     private int minPrice = DEFAULT_MIN_PRICE;
     
     /** Logger for this class and subclasses */
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     public boolean supports(Class clazz) {
         return Product.class.equals(clazz);

@@ -2,14 +2,14 @@ package springmvc_ims.dao;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import springmvc_ims.model.Product;
 
 public class ProductDao extends Dao {
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public void testDB() {		
 		Product product = new Product();
@@ -21,7 +21,7 @@ public class ProductDao extends Dao {
 		
 		List<Product> list = queryAllAsList();
         for(Product p : list) {
-        	System.out.println(p.getDescription().toString() + " " + p.getPrice());
+        	logger.debug(p.getDescription().toString() + " " + p.getPrice());
         }
 	}
 

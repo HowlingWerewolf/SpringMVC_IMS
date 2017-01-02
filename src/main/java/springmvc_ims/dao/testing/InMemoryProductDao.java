@@ -11,6 +11,7 @@ public class InMemoryProductDao extends ProductDao {
 
     public InMemoryProductDao(List<Product> productList) {
         this.productList = productList;
+        logger.info("InMemoryProductDao constructor called");
     }
     
     @Override

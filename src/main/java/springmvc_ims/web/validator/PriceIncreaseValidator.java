@@ -1,7 +1,7 @@
 package springmvc_ims.web.validator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -15,7 +15,7 @@ public class PriceIncreaseValidator implements Validator {
     private int maxPercentage = DEFAULT_MAX_PERCENTAGE;
 
     /** Logger for this class and subclasses */
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     public boolean supports(Class clazz) {
         return PriceIncrease.class.equals(clazz);
