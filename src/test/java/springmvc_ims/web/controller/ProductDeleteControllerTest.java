@@ -1,4 +1,4 @@
-package springmvc_ims.web;
+package springmvc_ims.web.controller;
 
 import org.springframework.web.servlet.ModelAndView;
 

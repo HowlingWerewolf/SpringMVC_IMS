@@ -1,4 +1,4 @@
-package springmvc_ims.model;
+package springmvc_ims.repository.model;
 
 import junit.framework.TestCase;
 import springmvc_ims.repository.model.Product;
