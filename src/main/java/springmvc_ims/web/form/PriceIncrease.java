@@ -1,4 +1,4 @@
-package springmvc_ims.model.form;
+package springmvc_ims.web.form;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,4 +1,4 @@
-package springmvc_ims.service;
+package springmvc_ims.web.service;
 
 import java.io.Serializable;
 import java.util.List;

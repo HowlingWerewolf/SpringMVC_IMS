@@ -1,11 +1,11 @@
-package springmvc_ims.model.validator;
+package springmvc_ims.web.validator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import springmvc_ims.model.form.PriceIncrease;
+import springmvc_ims.web.form.PriceIncrease;
 
 public class PriceIncreaseValidator implements Validator {
     

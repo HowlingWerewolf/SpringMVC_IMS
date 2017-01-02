@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import springmvc_ims.dao.ProductDao;
 import springmvc_ims.model.Product;
-import springmvc_ims.service.ProductManager;
+import springmvc_ims.web.service.ProductManager;
 
 @Controller
 public class ProductDeleteController {

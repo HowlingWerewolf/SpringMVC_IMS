@@ -4,8 +4,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import junit.framework.TestCase;
 import springmvc_ims.dao.testing.InMemoryProductDao;
-import springmvc_ims.service.SimpleProductManager;
 import springmvc_ims.web.mock.MockModel;
+import springmvc_ims.web.service.SimpleProductManager;
 
 public class ProductDeleteControllerTest extends TestCase {
 

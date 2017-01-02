@@ -1,4 +1,4 @@
-package springmvc_ims.service;
+package springmvc_ims.web.service;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;

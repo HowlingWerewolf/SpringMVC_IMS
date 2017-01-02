@@ -1,4 +1,4 @@
-package springmvc_ims.model.validator;
+package springmvc_ims.web.validator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
