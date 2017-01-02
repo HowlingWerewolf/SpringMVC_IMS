@@ -15,7 +15,8 @@ public class ProductValidator implements Validator {
     /** Logger for this class and subclasses */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public boolean supports(Class clazz) {
+    @SuppressWarnings("rawtypes")
+	public boolean supports(Class clazz) {
         return Product.class.equals(clazz);
     }
 

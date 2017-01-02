@@ -11,7 +11,8 @@ import springmvc_ims.web.controller.InventoryController;
 
 public class InventoryControllerTest extends TestCase {
 
-    public void testHandleRequestView() throws Exception {
+    @SuppressWarnings("rawtypes")
+	public void testHandleRequestView() throws Exception {
         InventoryController controller = new InventoryController();
         SimpleProductManager manager = new SimpleProductManager();
         manager.setProductDao(new InMemoryProductDao(null));

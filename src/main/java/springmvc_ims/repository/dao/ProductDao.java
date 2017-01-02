@@ -27,6 +27,7 @@ public class ProductDao extends Dao {
         }
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
     public List<Product> queryAllAsList() {
         logger.info("Getting products!");
