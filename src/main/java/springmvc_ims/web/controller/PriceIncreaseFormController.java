@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.service.ProductManager;
+import springmvc_ims.service.ProductService;
 import springmvc_ims.web.form.PriceIncrease;
 
 @Controller
@@ -31,7 +31,7 @@ public class PriceIncreaseFormController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ProductManager productManager;
+    private ProductService productService;
     
     @Autowired
 	@Qualifier("priceIncreaseValidator")
@@ -42,7 +42,7 @@ public class PriceIncreaseFormController {
 		binder.setValidator(validator);
 	}
 
-    @RequestMapping(method = RequestMethod.POST) 
+    @RequestMapping(method = RequestMethod.POST, value="/priceincrease/increase") 
     public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
@@ -56,7 +56,7 @@ public class PriceIncreaseFormController {
 
         int increase = ((PriceIncrease) command).getPercentage();
         logger.info("Increasing prices by " + increase + "%.");
-        productManager.increasePrice(increase);
+        productService.increasePrice(increase);
 
         logger.info("returning from PriceIncreaseForm");	
         
@@ -73,17 +73,17 @@ public class PriceIncreaseFormController {
     @RequestMapping(value = "/priceincrease", method = RequestMethod.GET) 
     public String displayLogin(Model model) {     	
 	   
-	   	// very special thanks to this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request
+	   	// very special thanks for this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request
         model.addAttribute("priceincrease", new PriceIncrease()); 
         return "priceincrease"; 
     }
 
-    public void setProductManager(ProductManager productManager) {
-        this.productManager = productManager;
+    protected void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
-    public ProductManager getProductManager() {
-        return productManager;
+    protected ProductService getProductService() {
+        return productService;
     }
 
 }

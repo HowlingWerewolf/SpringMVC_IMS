@@ -8,7 +8,7 @@ import springmvc_ims.repository.model.Product;
 
 public class ProductValidatorTest extends TestCase {
 	
-	private ProductValidator productValidator;
+	/*private ProductValidator productValidator;
 	private Product product;
 	private Errors errors;
     
@@ -60,6 +60,6 @@ public class ProductValidatorTest extends TestCase {
     	} catch (NullPointerException ex) {    		
     	}
     	return "";
-    }
+    }*/
 
 }

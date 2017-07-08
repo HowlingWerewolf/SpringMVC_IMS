@@ -2,14 +2,14 @@ package springmvc_ims.repository.dao.testing;
 
 import java.util.List;
 
-import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.dao.ProductDaoImpl;
 import springmvc_ims.repository.model.Product;
 
-public class InMemoryProductDao extends ProductDao {
+public class InMemoryProductDaoImpl extends ProductDaoImpl {
 
     private List<Product> productList;
 
-    public InMemoryProductDao(List<Product> productList) {
+    public InMemoryProductDaoImpl(List<Product> productList) {
         this.productList = productList;
         logger.info("InMemoryProductDao constructor called");
     }
@@ -20,15 +20,15 @@ public class InMemoryProductDao extends ProductDao {
     }
 
     @Override
-    public void save(Object product) {
+    public void save(Product product) {
     }
 
     @Override
-    public void update(Object product) {
+    public void update(Product product) {
     }
 
     @Override
-    public void delete(Object product) {
+    public void delete(Product product) {
     }
 
 }

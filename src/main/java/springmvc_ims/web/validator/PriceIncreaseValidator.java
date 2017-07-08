@@ -2,11 +2,13 @@ package springmvc_ims.web.validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import springmvc_ims.web.form.PriceIncrease;
 
+@Component
 public class PriceIncreaseValidator implements Validator {
     
 	private int DEFAULT_MIN_PERCENTAGE = 0;

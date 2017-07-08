@@ -20,3 +20,6 @@ Prerequirements:
   Logging folder is under 'c:/temp', please create that folder. Logging provided by commons-logging, DEBUG, ERROR levels are separated to the debug.log and error.log.
 
   In order to use selenium, install it to Firefox, then create 'c:/selenium' folder.
+
+ Start:
+  http://localhost:8080/SpringMVC_IMS/

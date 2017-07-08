@@ -2,7 +2,9 @@ package springmvc_ims.web.form;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PriceIncrease {
 
     /** Logger for this class and subclasses */

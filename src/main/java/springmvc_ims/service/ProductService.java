@@ -7,38 +7,34 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.dao.ProductDaoImpl;
 import springmvc_ims.repository.model.Product;
 
 @Service
-public class SimpleProductManager implements ProductManager {
+public class ProductService {
 
 	private static final long serialVersionUID = 1L;
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-    private ProductDao productDao;
+    private ProductDaoImpl productDaoImpl;
     
     public List<Product> getProducts() {
     	logger.debug("Inside SimpleProductManager getProducts()");
-        return productDao.queryAllAsList();
+        return productDaoImpl.queryAllAsList();
     }
 
     public void increasePrice(int percentage) {
-    	List<Product> products = productDao.queryAllAsList();
+    	List<Product> products = productDaoImpl.queryAllAsList();
         if (products != null) {
             for (Product product : products) {
                 double newPrice = product.getPrice().doubleValue() * 
                                     (100 + percentage)/100;
                 product.setPrice(newPrice);
-                productDao.update(product);
+                productDaoImpl.update(product);
             }
         }
-    }
-
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
     }
 
 }

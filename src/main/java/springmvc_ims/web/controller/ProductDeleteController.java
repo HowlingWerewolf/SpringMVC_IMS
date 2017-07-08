@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.dao.ProductDaoImpl;
 import springmvc_ims.repository.model.Product;
-import springmvc_ims.service.ProductManager;
+import springmvc_ims.service.ProductService;
 
 @Controller
 public class ProductDeleteController {
@@ -30,12 +30,13 @@ public class ProductDeleteController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ProductManager productManager;
+    private ProductService productService;
 
+    /* TODO: handle with service */
     @Autowired
-    private ProductDao productDao;
+    private ProductDaoImpl productDao;
 
-    @RequestMapping(method = RequestMethod.POST) 
+    @RequestMapping(method = RequestMethod.POST, value="/productdelete/delete") 
     public ModelAndView onSubmit(@ModelAttribute("productdelete") Product command, BindingResult result)
             throws ServletException {
         
@@ -77,17 +78,17 @@ public class ProductDeleteController {
 
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("now", now);
-        myModel.put("products", this.productManager.getProducts());
+        myModel.put("products", this.productService.getProducts());
 
         return new ModelAndView("productdelete", "model", myModel);
     }
 
-    public void setProductManager(ProductManager productManager) {
-        this.productManager = productManager;
-    }
+	protected ProductService getProductService() {
+		return productService;
+	}
 
-    public ProductManager getProductManager() {
-        return productManager;
-    }
+	protected void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
 
 }

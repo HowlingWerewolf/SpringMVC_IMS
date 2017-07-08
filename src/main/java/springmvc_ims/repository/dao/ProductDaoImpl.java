@@ -4,12 +4,18 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import springmvc_ims.repository.model.Product;
+import springmvc_ims.repository.model.access.ProductRepository;
 
 @Repository
-public class ProductDao extends Dao {
+public class ProductDaoImpl {
+	
+	@Autowired
+	private ProductRepository productRepository;
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -19,7 +25,7 @@ public class ProductDao extends Dao {
 		product.setDescription("Test");
 		product.setPrice(1.0d);
 
-		db.save(product);
+		productRepository.save(product);
 		
 		List<Product> list = queryAllAsList();
         for(Product p : list) {
@@ -28,31 +34,27 @@ public class ProductDao extends Dao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-    public List<Product> queryAllAsList() {
+	public List<Product> queryAllAsList() {
         logger.info("Getting products!");
         List<Product> products = null;
         try {
-        	products = (List<Product>) db.query("FROM Product");
+        	products = productRepository.findAll();
 		} catch (NullPointerException ex) {
 	        logger.info("ProductDao: NPE!");
 		}
         return products;
     }
 
-	@Override
-    public void save(Object product) {
-    	db.save((Product) product);
+	public void save(Product product) {
+		productRepository.save(product);
     }
 
-	@Override
-	public void delete(Object product) {
-		db.delete((Product) product);
+	public void delete(Product product) {
+		productRepository.delete(product);
 	}
 
-	@Override
-	public void update(Object product) {
-		db.update((Product) product);
+	public void update(Product product) {
+		save(product);
 	}
     
 }

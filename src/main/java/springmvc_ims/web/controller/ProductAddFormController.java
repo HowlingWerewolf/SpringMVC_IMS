@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import springmvc_ims.repository.dao.ProductDao;
+import springmvc_ims.repository.dao.ProductDaoImpl;
 import springmvc_ims.repository.model.Product;
-import springmvc_ims.service.ProductManager;
+import springmvc_ims.service.ProductService;
 
 @Controller
 public class ProductAddFormController {
@@ -32,21 +32,22 @@ public class ProductAddFormController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ProductManager productManager;
+    private ProductService productService;
     
     @Autowired
 	@Qualifier("productValidator")
 	private Validator validator;
 
+    /* TODO: handle with service */
     @Autowired
-    private ProductDao productDao;
+    private ProductDaoImpl productDao;
     
     @InitBinder
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(validator);
 	}
 
-    @RequestMapping(method = RequestMethod.POST) 
+    @RequestMapping(method = RequestMethod.POST, value="/productadd/submit") 
     public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
             throws ServletException {
         
@@ -82,12 +83,12 @@ public class ProductAddFormController {
         return "productadd"; 
     }
 
-    public void setProductManager(ProductManager productManager) {
-        this.productManager = productManager;
-    }
+	protected ProductService getProductService() {
+		return productService;
+	}
 
-    public ProductManager getProductManager() {
-        return productManager;
-    }
+	protected void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
 
 }

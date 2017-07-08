@@ -10,7 +10,9 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<spring.version>4.1.1.RELEASE</spring.version>
+		<spring.version>4.3.9.RELEASE</spring.version>
+		<spring-data.version>1.11.4.RELEASE</spring-data.version>
+		<spring-security.version>4.2.3.RELEASE</spring-security.version>
 		<javax.version>3.1.0</javax.version>
 		<jstl.version>1.2</jstl.version>
 		<junit.version>4.11</junit.version>
@@ -80,6 +82,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+    		<version>${spring-data.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>${spring-security.version}</version>
+		</dependency>
+				
 
 		<dependency>
 			<groupId>jstl</groupId>

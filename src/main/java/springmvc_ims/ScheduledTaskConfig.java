@@ -1,4 +1,4 @@
-package springmvc_ims.service;
+package springmvc_ims;
 
 import java.util.Date;
 

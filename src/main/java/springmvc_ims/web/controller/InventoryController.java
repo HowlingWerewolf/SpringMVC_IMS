@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import springmvc_ims.service.ProductManager;
+import springmvc_ims.service.ProductService;
 
 @Controller
 public class InventoryController {
@@ -24,7 +24,7 @@ public class InventoryController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ProductManager productManager;
+    private ProductService productService;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,14 +35,17 @@ public class InventoryController {
 
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("now", now);
-        myModel.put("products", this.productManager.getProducts());
+        myModel.put("products", this.productService.getProducts());
 
         return new ModelAndView("hello", "model", myModel);
     }
 
+    protected ProductService getProductService() {
+		return productService;
+	}
 
-    public void setProductManager(ProductManager productManager) {
-        this.productManager = productManager;
+	protected void setProductService(ProductService productService) {
+        this.productService = productService;
     }
     
 }
