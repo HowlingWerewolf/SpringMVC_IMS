@@ -37,7 +37,7 @@ public class ProductDeleteController {
     @Autowired
     private ProductDaoImpl productDao;
 
-    @RequestMapping(method = RequestMethod.POST, value="/productdelete/delete") 
+    @RequestMapping(method = RequestMethod.POST, value="/productdelete") 
     public ModelAndView onSubmit(@ModelAttribute("productdelete") Product command, BindingResult result)
             throws ServletException {
         

@@ -49,7 +49,7 @@ public class ProductAddFormController {
 		binder.setValidator(validator);
 	}
 
-    @PostMapping(value="/productadd/submit") 
+    @PostMapping(value="/productadd") 
     public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
             throws ServletException {
         

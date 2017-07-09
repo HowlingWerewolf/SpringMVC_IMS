@@ -42,7 +42,7 @@ public class PriceIncreaseFormController {
 		binder.setValidator(validator);
 	}
 
-    @PostMapping(value="/priceincrease/increase") 
+    @PostMapping(value="/priceincrease") 
     public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
