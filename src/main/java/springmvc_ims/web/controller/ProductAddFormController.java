@@ -14,8 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +49,7 @@ public class ProductAddFormController {
 		binder.setValidator(validator);
 	}
 
-    @RequestMapping(method = RequestMethod.POST, value="/productadd/submit") 
+    @PostMapping(value="/productadd/submit") 
     public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
             throws ServletException {
         
@@ -77,7 +79,7 @@ public class ProductAddFormController {
         return product;
     }
     
-    @RequestMapping(value = "/productadd", method = RequestMethod.GET) 
+    @GetMapping(value = "/productadd") 
     public String displayLogin(Model model) {     
 	   	model.addAttribute("productadd", new Product()); 
         return "productadd"; 

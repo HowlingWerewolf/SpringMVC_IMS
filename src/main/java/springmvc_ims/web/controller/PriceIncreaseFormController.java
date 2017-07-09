@@ -14,10 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -42,7 +42,7 @@ public class PriceIncreaseFormController {
 		binder.setValidator(validator);
 	}
 
-    @RequestMapping(method = RequestMethod.POST, value="/priceincrease/increase") 
+    @PostMapping(value="/priceincrease/increase") 
     public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
@@ -70,7 +70,7 @@ public class PriceIncreaseFormController {
         return priceIncrease;
     }
     
-    @RequestMapping(value = "/priceincrease", method = RequestMethod.GET) 
+    @GetMapping(value = "/priceincrease") 
     public String displayLogin(Model model) {     	
 	   
 	   	// very special thanks for this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request

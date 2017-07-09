@@ -9,6 +9,7 @@
 	<name>SpringMVC_IMS</name>
 	<url>http://maven.apache.org</url>
 	<properties>
+    	<failOnMissingWebXml>false</failOnMissingWebXml>
 		<jdk.version>1.8</jdk.version>
 		<spring.version>4.3.9.RELEASE</spring.version>
 		<spring-data.version>1.11.4.RELEASE</spring-data.version>
@@ -136,7 +137,15 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
-		</dependency>	
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency>
+		    <groupId>commons-lang</groupId>
+		    <artifactId>commons-lang</artifactId>
+		    <version>2.6</version>
+		</dependency>
+			
 
 	</dependencies>
 
