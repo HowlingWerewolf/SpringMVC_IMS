@@ -63,6 +63,7 @@ public class HibernateConfiguration {
         properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.jdbc.use_get_generated_keys", "true");
         properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("javax.persistence.validation.mode", "none");
         return properties;        
     }
