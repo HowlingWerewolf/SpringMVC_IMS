@@ -46,6 +46,7 @@ public class PriceIncreaseFormController {
     public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command, BindingResult result)
             throws ServletException {
         
+    	// TODO if the product list is empty, do not throw error
         if(result.hasErrors()) {
             logger.info("I know something is not ok with the PI. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
