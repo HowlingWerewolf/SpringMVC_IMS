@@ -13,8 +13,6 @@ import springmvc_ims.repository.model.Product;
 @Service
 public class ProductService {
 
-	private static final long serialVersionUID = 1L;
-
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired

@@ -1,5 +1,9 @@
 package springmvc_ims.web.validator;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
@@ -8,16 +12,20 @@ import springmvc_ims.repository.model.Product;
 
 public class ProductValidatorTest extends TestCase {
 	
-	/*private ProductValidator productValidator;
+	@InjectMocks
+	private ProductValidator productValidator;
+	
 	private Product product;
 	private Errors errors;
     
-    protected void setUp() throws Exception {
-    	productValidator = new ProductValidator();
+	@Before
+    public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
     	product = new Product();
     }
 
-    public void testValidateNoDescription() {
+	@Test
+    public void testvalidateNoDescription() {
     	product.setId(1);
     	product.setDescription("");
     	product.setPrice(111d);
@@ -26,6 +34,7 @@ public class ProductValidatorTest extends TestCase {
     	assertEquals("Value required.", getDescriptionErrorMessage());    	
     }
 
+	@Test
     public void testValidateNoPrice() {
     	product.setId(1);
     	product.setDescription("aaa");
@@ -35,6 +44,7 @@ public class ProductValidatorTest extends TestCase {
     	assertEquals("Value required.", getPriceErrorMessage()); 
     }
 
+	@Test
     public void testValidateTooLowPrice() {
     	product.setId(1);
     	product.setDescription("aaa");
@@ -46,20 +56,22 @@ public class ProductValidatorTest extends TestCase {
     
     private String getDescriptionErrorMessage() {
     	try {
-    		if (errors.getFieldError("description").getDefaultMessage() != null)
+    		if (errors.getFieldError("description").getDefaultMessage() != null) {
     			return errors.getFieldError("description").getDefaultMessage();
-    	} catch (NullPointerException ex) {    		
-    	}
+    		}
+    	} catch (NullPointerException ex) {}
+    	
     	return "";
     }
     
     private String getPriceErrorMessage() {
     	try {
-    		if (errors.getFieldError("price").getDefaultMessage() != null)
+    		if (errors.getFieldError("price").getDefaultMessage() != null) {
     			return errors.getFieldError("price").getDefaultMessage();
-    	} catch (NullPointerException ex) {    		
-    	}
+    		}
+    	} catch (NullPointerException ex) {}
+    	
     	return "";
-    }*/
+    }
 
 }

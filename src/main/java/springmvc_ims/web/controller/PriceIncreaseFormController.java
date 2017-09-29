@@ -79,12 +79,4 @@ public class PriceIncreaseFormController {
         return "priceincrease"; 
     }
 
-    protected void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
-
-    protected ProductService getProductService() {
-        return productService;
-    }
-
 }

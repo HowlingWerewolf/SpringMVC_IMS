@@ -1,5 +1,9 @@
 package springmvc_ims.web.validator;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
@@ -8,28 +12,34 @@ import springmvc_ims.web.form.PriceIncrease;
 
 public class PriceIncreaseValidatorTest extends TestCase {
 	
-	/*private PriceIncreaseValidator priceIncreaseValidator;
+	@InjectMocks
+	private PriceIncreaseValidator priceIncreaseValidator;
+	
 	private PriceIncrease priceIncrease;
 	private Errors errors;
-    
-    protected void setUp() throws Exception {
-    	priceIncreaseValidator = new PriceIncreaseValidator();
+
+	@Before
+    public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
     	priceIncrease = new PriceIncrease();
     	errors = new BeanPropertyBindingResult(priceIncrease, "percentage");
     }
 
+	@Test
     public void testValidateNull() {
     	priceIncrease = null;
     	priceIncreaseValidator.validate(priceIncrease, errors);
     	assertEquals("Value required.", getErrorMessage()); 
     }
 
+	@Test
     public void testValidateTooLow() {
     	priceIncrease.setPercentage(0);
     	priceIncreaseValidator.validate(priceIncrease, errors);
     	assertEquals("Value too low.", getErrorMessage());    	
     }
 
+	@Test
     public void testValidateTooHigh() {
     	priceIncrease.setPercentage(100);
     	priceIncreaseValidator.validate(priceIncrease, errors);
@@ -38,6 +48,6 @@ public class PriceIncreaseValidatorTest extends TestCase {
     
     private String getErrorMessage() {
     	return (String) errors.getFieldError("percentage").getDefaultMessage();
-    }*/
+    }
 
 }

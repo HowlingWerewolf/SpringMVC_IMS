@@ -38,13 +38,5 @@ public class InventoryController {
 
         return new ModelAndView("hello", "model", myModel);
     }
-
-    protected ProductService getProductService() {
-		return productService;
-	}
-
-	protected void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
     
 }

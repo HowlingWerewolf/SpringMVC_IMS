@@ -11,16 +11,14 @@ public class ProductTest extends TestCase {
         product = new Product();
     }
 
-    public void testSetAndGetDescription() {
+    public void testSetDescription() {        
         String testDescription = "aDescription";
-        assertNull(product.getDescription());
         product.setDescription(testDescription);
         assertEquals(testDescription, product.getDescription());
     }
 
     public void testSetAndGetPrice() {
-        double testPrice = 100.00;
-        assertEquals(0, 0, 0);    
+        double testPrice = 100.00;  
         product.setPrice(testPrice);
         assertEquals(testPrice, product.getPrice(), 0);
     }

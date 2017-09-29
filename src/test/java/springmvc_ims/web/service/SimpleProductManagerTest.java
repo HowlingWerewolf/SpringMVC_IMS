@@ -3,15 +3,25 @@ package springmvc_ims.web.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
 import junit.framework.TestCase;
 import springmvc_ims.repository.dao.ProductDaoImpl;
-import springmvc_ims.repository.dao.testing.InMemoryProductDaoImpl;
 import springmvc_ims.repository.model.Product;
 import springmvc_ims.service.ProductService;
 
 public class SimpleProductManagerTest extends TestCase {
 
+	@InjectMocks
     private ProductService productService;
+	
+	@Mock
+    private ProductDaoImpl productDaoImpl;
 
     private List<Product> products;
     
@@ -25,8 +35,10 @@ public class SimpleProductManagerTest extends TestCase {
     
     private static int POSITIVE_PRICE_INCREASE = 10;
     
-    /*protected void setUp() throws Exception {
-        productService = new ProductService();
+    @Before
+    public void setUp() throws Exception {
+    	MockitoAnnotations.initMocks(this);
+    	
         products = new ArrayList<Product>();
         
         // stub up a list of products
@@ -39,18 +51,17 @@ public class SimpleProductManagerTest extends TestCase {
         product.setDescription("Table");
         product.setPrice(TABLE_PRICE);
         products.add(product);
-        
-        ProductDaoImpl productDaoImpl = new InMemoryProductDaoImpl(products);
-        productService.setProductDao(productDaoImpl);
     }
 
+    @Test
     public void testGetProductsWithNoProducts() {
-        productService = new ProductService();
-        productService.setProductDao(new InMemoryProductDaoImpl(null));
-        assertNull(productService.getProducts());
+        assertTrue(productService.getProducts().isEmpty());
     }
     
+    @Test
     public void testGetProducts() {
+    	Mockito.when(productDaoImpl.queryAllAsList()).thenReturn(products);
+    	
         List<Product> products = productService.getProducts();
         assertNotNull(products);        
         assertEquals(PRODUCT_COUNT, productService.getProducts().size());
@@ -64,29 +75,28 @@ public class SimpleProductManagerTest extends TestCase {
         assertEquals(TABLE_PRICE, product.getPrice());      
     }   
     
+    @Test
     public void testIncreasePriceWithNullListOfProducts() {
         try {
-            productService = new ProductService();
-            productService.setProductDao(new InMemoryProductDaoImpl(null));
             productService.increasePrice(POSITIVE_PRICE_INCREASE);
-        }
-        catch(NullPointerException ex) {
+        } catch(NullPointerException ex) {
             fail("Products list is null.");
         }
     }
     
+    @Test
     public void testIncreasePriceWithEmptyListOfProducts() {
         try {
-            productService = new ProductService();
-            productService.setProductDao(new InMemoryProductDaoImpl(new ArrayList<Product>()));
             productService.increasePrice(POSITIVE_PRICE_INCREASE);
-        }
-        catch(Exception ex) {
+        } catch(Exception ex) {
             fail("Products list is empty.");
         }           
     }
     
+    @Test
     public void testIncreasePriceWithPositivePercentage() {
+    	Mockito.when(productDaoImpl.queryAllAsList()).thenReturn(products);
+    	
         productService.increasePrice(POSITIVE_PRICE_INCREASE);
         double expectedChairPriceWithIncrease = 22.55;
         double expectedTablePriceWithIncrease = 165.11;
@@ -97,6 +107,6 @@ public class SimpleProductManagerTest extends TestCase {
         
         product = products.get(1);      
         assertEquals(expectedTablePriceWithIncrease, product.getPrice());       
-    } */
+    } 
 
 }
