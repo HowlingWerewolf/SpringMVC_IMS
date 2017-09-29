@@ -1,6 +1,7 @@
 package springmvc_ims.web.controller;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,6 +20,10 @@ public class ProductDeleteControllerTest extends TestCase {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+	}
+	
+	@Test
+	public void testTodo() {		
 	}
     
 }
