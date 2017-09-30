@@ -1,6 +1,8 @@
 package springmvc_ims.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +31,18 @@ public class InventoryController {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String now = (new java.util.Date()).toString();
+        String now = (new Date()).toString();
         logger.info("returning hello view with " + now);
 
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("now", now);
-        myModel.put("products", this.productService.getProducts());
-
+        
+        if (productService.getProducts() != null) {
+        	myModel.put("products", productService.getProducts());
+        } else {
+        	myModel.put("products", new ArrayList<>());
+        }
+                
         return new ModelAndView("hello", "model", myModel);
     }
     

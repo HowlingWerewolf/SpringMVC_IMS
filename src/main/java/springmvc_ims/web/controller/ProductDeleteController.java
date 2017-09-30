@@ -84,12 +84,4 @@ public class ProductDeleteController {
         return new ModelAndView("productdelete", "model", myModel);
     }
 
-	protected ProductService getProductService() {
-		return productService;
-	}
-
-	protected void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
-
 }

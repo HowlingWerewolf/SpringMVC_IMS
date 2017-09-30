@@ -83,12 +83,4 @@ public class ProductAddFormController {
         return "productadd"; 
     }
 
-	protected ProductService getProductService() {
-		return productService;
-	}
-
-	protected void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
-
 }
