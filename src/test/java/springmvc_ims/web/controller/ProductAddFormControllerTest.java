@@ -17,7 +17,6 @@ import junit.framework.TestCase;
 import springmvc_ims.repository.dao.ProductDaoImpl;
 import springmvc_ims.repository.model.Product;
 import springmvc_ims.service.ProductService;
-import springmvc_ims.web.form.PriceIncrease;
 
 public class ProductAddFormControllerTest extends TestCase {
 	
