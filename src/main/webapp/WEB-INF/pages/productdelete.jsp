@@ -13,30 +13,25 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/pages/import/navbar.jsp"%>
-	
-	<h1>
+
+	<h1 class="mb-4">
 		<fmt:message key="pages.productdelete" />
 	</h1>
-	
-	<c:forEach items="${model.products}" var="prod">
-		<form:form method="POST" commandName="productdelete">
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"
-				cellpadding="5">
+
+	<table class="table table-striped">
+		<c:forEach items="${model.products}" var="prod">
+			<form:form method="POST" commandName="productdelete">
 				<form:hidden path="id" value="${prod.id}" />
 				<tr>
-
 					<td align="right" width="20%">Description (name of product):</td>
-					<td width="20%"><form:input path="description"
-							value="${prod.description}" /></td>
+					<td width="20%"><c:out value="${prod.description}" /></td>
 					<td align="right" width="20%">Price:</td>
-					<td width="20%"><form:input path="price" value="${prod.price}" />
-					</td>
+					<td width="20%">$<c:out value="${prod.price}" /></td>
+					<td width="20%"><input type="submit" value="Delete"></td>
 				</tr>
-			</table>
-			<br>
-			<input type="submit" align="center" value="Delete">
-		</form:form>
-	</c:forEach>
+			</form:form>
+		</c:forEach>
+	</table>
 
 	<%@ include file="/WEB-INF/pages/import/js.jsp"%>
 </body>

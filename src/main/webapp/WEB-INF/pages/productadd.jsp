@@ -14,13 +14,12 @@
 <body>
 	<%@ include file="/WEB-INF/pages/import/navbar.jsp"%>
 	
-	<h1>
+	<h1 class="mb-4">
 		<fmt:message key="pages.productadd" />
 	</h1>
 	
 	<form:form method="POST" commandName="productadd">
-		<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"
-			cellpadding="5">
+		<table class="table table-striped">
 			<tr>
 				<td align="right" width="20%">Description (name of product):</td>
 				<td width="20%"><form:input path="description" /></td>
@@ -28,11 +27,10 @@
 						cssClass="error" /></td>
 				<td align="right" width="20%">Price:</td>
 				<td width="20%"><form:input path="price" /></td>
-				<td width="20%"><form:errors path="price" cssClass="error" /></td>
+				<td width="10%"><form:errors path="price" cssClass="error" /></td>
+				<td width="10%"><input type="submit" align="center" value="Execute"></td>
 			</tr>
-		</table>
-		<br>
-		<input type="submit" align="center" value="Execute">
+		</table>		
 	</form:form>
 	
 	<%@ include file="/WEB-INF/pages/import/js.jsp"%>
