@@ -13,9 +13,11 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/pages/import/navbar.jsp"%>
+	
 	<h1>
-		<fmt:message key="productdelete.heading" />
+		<fmt:message key="pages.productdelete" />
 	</h1>
+	
 	<c:forEach items="${model.products}" var="prod">
 		<form:form method="POST" commandName="productdelete">
 			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"

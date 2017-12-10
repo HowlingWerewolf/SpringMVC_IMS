@@ -1,9 +1,7 @@
 package springmvc_ims.web.controller;
 
-import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,13 +18,12 @@ public class HelloController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping(value = "/")
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
     	try {
 	        String now = (new Date()).toString();
-	        logger.info("Returning hello view with " + now);
+	        logger.info("Returning hello view at " + now);
 	
-	        return new ModelAndView("hello", "now", now);
+	        return new ModelAndView("hello");
     	} catch (Exception e) {
     		logger.error("Error occured: " + ExceptionUtils.getStackTrace(e));
     	}

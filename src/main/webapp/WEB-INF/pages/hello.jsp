@@ -8,14 +8,8 @@
 <body>
 	<%@ include file="/WEB-INF/pages/import/navbar.jsp"%>
 
-	<h1>
-		<fmt:message key="heading" />
-	</h1>
-	<p>
-		<fmt:message key="greeting" />
-		<c:out value="${model.now}" />
-	</p>
-	<h3>Products</h3>
+	<h1><fmt:message key="pages.products" /></h1>
+	
 	<c:forEach items="${model.products}" var="prod">
 		<c:out value="${prod.description}" />
 		<i>$<c:out value="${prod.price}" /></i>

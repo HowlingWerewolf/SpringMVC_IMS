@@ -13,9 +13,11 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/pages/import/navbar.jsp"%>
+	
 	<h1>
-		<fmt:message key="priceincrease.heading" />
+		<fmt:message key="pages.priceincrease" />
 	</h1>
+	
 	<form:form method="POST" commandName="priceincrease">
 		<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"
 			cellpadding="5">
@@ -27,9 +29,9 @@
 			</tr>
 		</table>
 		<br>
-		<input type="submit" align="center" value="Execute">
+		<input type="submit" align="center" value="Increase">
 	</form:form>
-	<a href="<c:url value="hello.htm"/>">Home</a>
+
 	<%@ include file="/WEB-INF/pages/import/js.jsp"%>
 </body>
 </html>
