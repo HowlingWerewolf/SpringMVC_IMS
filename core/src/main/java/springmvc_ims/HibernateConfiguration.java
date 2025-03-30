@@ -5,6 +5,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +22,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages="springmvc_ims.repository.model.access")
 @EnableTransactionManagement
 public class HibernateConfiguration {
-	
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Bean
 	@Primary
 	public DataSource dataSource() {
+        logger.info("Configuring datasource...");
 	    return DataSourceBuilder
 	        .create()
-	        .url("jdbc:postgresql://localhost:5432/springims")
+	        .url("jdbc:postgresql://host.docker.internal:5432/postgres")
 	        .driverClassName("org.postgresql.Driver")
 	        .username("springims")
 	        .password("springims")
 	        .build();
 	}
-    
+
     @Bean
     public EntityManagerFactory entityManagerFactory() {
       HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -54,10 +59,10 @@ public class HibernateConfiguration {
       txManager.setEntityManagerFactory(entityManagerFactory());
       return txManager;
     }
-    
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.globally_quoted_identifiers", "true");
         properties.put("hibernate.max_fetch_depth", "2");
         properties.put("hibernate.format_sql", "true");
@@ -65,7 +70,7 @@ public class HibernateConfiguration {
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("javax.persistence.validation.mode", "none");
-        return properties;        
+        return properties;
     }
 }
 

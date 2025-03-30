@@ -6,14 +6,14 @@ CREATE USER springims WITH
 	INHERIT
 	NOREPLICATION
 	CONNECTION LIMIT -1
-	PASSWORD 'xxxxxx';
-	
+	PASSWORD 'springims';
+
 CREATE DATABASE springims
-    WITH 
+    WITH
     OWNER = springims
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
-    
+
 CREATE TABLE public."PRODUCTS"
 (
     "ID" integer NOT NULL,
@@ -28,16 +28,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."PRODUCTS"
     OWNER to springims;
-    
-CREATE INDEX "ID_IDX"
-ON public."PRODUCTS" USING btree
-(ID)
-TABLESPACE pg_default;
 
-
-ALTER SEQUENCE public."PRODUCT_SEQ"
-    OWNER TO springims;
-    
 --TODO: use sequence in inserts
 CREATE SEQUENCE public."PRODUCT_SEQ"
     INCREMENT 1
@@ -45,6 +36,9 @@ CREATE SEQUENCE public."PRODUCT_SEQ"
     MINVALUE 1
     MAXVALUE 99999999999999
     CACHE 1;
+
+ALTER SEQUENCE public."PRODUCT_SEQ"
+    OWNER TO springims;
 
 INSERT INTO public."PRODUCTS"(
 	"ID", "DESCRIPTION", "PRICE")
