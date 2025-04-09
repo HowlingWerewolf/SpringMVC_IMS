@@ -1,0 +1,1 @@
+call docker compose down --rmi local

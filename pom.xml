@@ -31,6 +31,9 @@
         <slf4j.version>2.0.17</slf4j.version>
         <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
         <mockito-core.version>5.14.2</mockito-core.version>
+        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <flyway-database-postgresql.version>11.6.0</flyway-database-postgresql.version>
     </properties>
 
     <modules>
@@ -100,7 +103,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>8.0.1.Final</version>
+                <version>${hibernate-validator.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate.orm</groupId>
@@ -125,7 +128,12 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.6</version>
+                <version>${commons-lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway-database-postgresql.version}</version>
             </dependency>
 
             <dependency>
@@ -170,19 +178,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Eclipse project -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.9</version>
-                    <configuration>
-                        <!-- Always download and attach dependencies source code -->
-                        <downloadSources>true</downloadSources>
-                        <downloadJavadocs>false</downloadJavadocs>
-                        <!-- mvn eclipse:eclipse -Dwtpversion=2.0 -->
-                        <wtpversion>2.0</wtpversion>
-                    </configuration>
-                </plugin>
                 <!-- Set JDK Compiler Level -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
