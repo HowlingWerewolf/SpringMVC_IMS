@@ -20,7 +20,7 @@
 
 	<table class="table table-striped">
 		<c:forEach items="${model.products}" var="prod">
-			<form:form method="POST" commandName="productdelete">
+			<form:form method="POST" modelAttribute="productdelete">
 				<form:hidden path="id" value="${prod.id}" />
 				<tr>
 					<td align="right" width="20%">Description (name of product):</td>

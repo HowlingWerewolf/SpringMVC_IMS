@@ -9,18 +9,18 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="hello.htm">Home
+			<li class="nav-item active"><a class="nav-link" href="/SpringMVC_IMS/hello">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="priceincrease.htm">Increase Prices</a></li>
+				href="/SpringMVC_IMS/priceincrease">Increase Prices</a></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> Products </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="productadd.htm">Add</a> <a
-						class="dropdown-item" href="productdelete.htm">Delete</a>
+					<a class="dropdown-item" href="/SpringMVC_IMS/productadd">Add</a> <a
+						class="dropdown-item" href="/SpringMVC_IMS/productdelete">Delete</a>
 					<div class="dropdown-divider"></div>
 				</div></li>
 		</ul>

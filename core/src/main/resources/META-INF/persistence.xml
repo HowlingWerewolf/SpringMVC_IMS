@@ -4,7 +4,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 version="2.0">
 	<persistence-unit name="testPU">
-	  <class>springmvc_ims.repository.model.Product</class>
+	  <class>com.ims.repository.model.Product</class>
 	  <properties>
 	    <property name="hibernate.id.new_generator_mappings" value="false" />
 	  </properties>

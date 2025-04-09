@@ -18,7 +18,7 @@
 		<fmt:message key="pages.productadd" />
 	</h1>
 	
-	<form:form method="POST" commandName="productadd">
+	<form:form method="POST" modelAttribute="productadd">
 		<table class="table table-striped">
 			<tr>
 				<td align="right" width="20%">Description (name of product):</td>

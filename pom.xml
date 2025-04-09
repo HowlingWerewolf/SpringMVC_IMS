@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>spring.ims</groupId>
-    <artifactId>spring.ims.parent</artifactId>
+    <groupId>org.ims</groupId>
+    <artifactId>org.ims.parent</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -12,23 +12,25 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>21</jdk.version>
         <lombok.version>1.18.36</lombok.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <spring.version>4.3.9.RELEASE</spring.version>
-        <spring-data.version>1.11.4.RELEASE</spring-data.version>
-        <spring-security.version>4.2.3.RELEASE</spring-security.version>
-        <javax.version>3.1.0</javax.version>
-        <jstl.version>1.2</jstl.version>
+        <spring.version>6.2.5</spring.version>
+        <spring-security.version>6.4.4</spring-security.version>
+        <jakarta.servlet.jsp.jstl-api.version>3.0.2</jakarta.servlet.jsp.jstl-api.version>
         <junit.version>4.11</junit.version>
         <logback.version>1.0.13</logback.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
-        <javax-validation.version>1.1.0.Final</javax-validation.version>
-        <hibernate-core.version>5.2.5.Final</hibernate-core.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <hibernate-core.version>6.6.13.Final</hibernate-core.version>
         <postgresql-jdbc.version>42.7.5</postgresql-jdbc.version>
         <mockito.version>1.10.19</mockito.version>
-        <spring-boot.version>1.4.3.RELEASE</spring-boot.version>
+        <spring-boot-starter-web.version>3.4.4</spring-boot-starter-web.version>
+        <spring-data.version>${spring-boot-starter-web.version}</spring-data.version>
+        <spring-boot.version>${spring-boot-starter-web.version}</spring-boot.version>
         <slf4j.version>1.7.22</slf4j.version>
+        <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
     </properties>
 
     <modules>
@@ -70,7 +72,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring-boot-starter-web.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework.boot</groupId>
@@ -89,22 +91,29 @@
                 <version>${spring-security.version}</version>
             </dependency>
             <dependency>
-                <groupId>jstl</groupId>
-                <artifactId>jstl</artifactId>
-                <version>${jstl.version}</version>
+                <groupId>jakarta.servlet.jsp.jstl</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+                <version>${jakarta.servlet.jsp.jstl-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.version}</version>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+                <version>${jakarta.servlet.jsp.jstl.version}</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${javax-validation.version}</version>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta.servlet-api.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>8.0.1.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate-core.version}</version>
             </dependency>

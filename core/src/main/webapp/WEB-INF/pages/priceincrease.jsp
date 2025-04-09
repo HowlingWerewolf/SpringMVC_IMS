@@ -18,7 +18,7 @@
 		<fmt:message key="pages.priceincrease" />
 	</h1>
 
-	<form:form method="POST" commandName="priceincrease">
+	<form:form method="POST" modelAttribute="priceincrease">
 		<table class="table table-striped">
 			<tr>
 				<td align="right" width="20%">Increase (%):</td>

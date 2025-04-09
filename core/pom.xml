@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring.ims.core</artifactId>
+    <artifactId>org.ims.core</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
-        <groupId>spring.ims</groupId>
-        <artifactId>spring.ims.parent</artifactId>
+        <groupId>org.ims</groupId>
+        <artifactId>org.ims.parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -16,7 +16,7 @@
     <url>http://maven.apache.org</url>
     <packaging>war</packaging>
     <properties>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>21</jdk.version>
     </properties>
 
     <dependencies>
@@ -63,19 +63,23 @@
             <artifactId>spring-security-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
