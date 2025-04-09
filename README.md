@@ -11,7 +11,12 @@ In addition to the project, other features added:
   - add product
   - delete product
 
+Run the createpg_db.sql
+  - create the springims user
+  - creates the db and the necessary tables
+  - fills up the tables with data (TODO: add flyway instead)
+
 In order to use selenium, install it to Firefox, then create 'c:/selenium' folder.
 
  Start:
-  http://localhost:8080/core/
+  http://localhost:8080/SpringMVC_IMS/
