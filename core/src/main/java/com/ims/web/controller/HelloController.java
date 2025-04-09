@@ -18,11 +18,11 @@ public class HelloController {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
     	try {
 	        String now = (new Date()).toString();
-	        log.info("Returning hello view at " + now);
+            log.info("Returning hello view at {}", now);
 	
 	        return new ModelAndView("hello");
     	} catch (Exception e) {
-    		log.error("Error occured: " + ExceptionUtils.getStackTrace(e));
+            log.error("Error occured: {}", ExceptionUtils.getStackTrace(e));
     	}
 		return null;
     }

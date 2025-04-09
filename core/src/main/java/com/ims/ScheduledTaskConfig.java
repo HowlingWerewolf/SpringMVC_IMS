@@ -16,8 +16,7 @@ public class ScheduledTaskConfig {
 	
     @Scheduled(fixedRate=60000)
     public void work() {
-    	System.out.println(new Date() + ": Hello:)");
-    	log.info(new Date() + ": Hello:)");
+        log.info("{}: Hello:)", new Date());
     	log.info("An info message. This should be written both to console and log file.");
     	log.debug("A debug message. This should be written only to log file.");
     	log.error("An error message. This should be written both to console, log file and error log file.");

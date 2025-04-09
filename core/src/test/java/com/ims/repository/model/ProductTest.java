@@ -14,7 +14,7 @@ class ProductTest {
 
     @BeforeEach
     void setUp() {
-        product = new Product();
+        product = Product.builder().build();
     }
 
     @Test

@@ -3,7 +3,6 @@ package com.ims.web.controller;
 import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -28,54 +27,55 @@ public class ProductAddFormController {
 
     @Autowired
     private ProductService productService;
-    
+
     @Autowired
-	@Qualifier("productValidator")
-	private Validator validator;
+    @Qualifier("productValidator")
+    private Validator validator;
 
     /* TODO: handle with service */
     @Autowired
     private ProductDaoImpl productDao;
-    
-    @InitBinder
-	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(validator);
-	}
 
-    @PostMapping(value="/productadd") 
-    public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid Product command, BindingResult result)
-            throws ServletException {
-        
-        if(result.hasErrors()) {
+    @InitBinder
+    private void initBinder(final WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
+
+    @PostMapping(value = "/productadd")
+    public ModelAndView onSubmit(@ModelAttribute("productadd") @Valid final Product command,
+                                 final BindingResult result) {
+
+        if (result.hasErrors()) {
             log.info("I know something is not ok with the PI. Errors below:");
-            for (ObjectError error : result.getAllErrors()) {
+            for (final ObjectError error : result.getAllErrors()) {
                 log.info(error.getDefaultMessage());
-            }            
+            }
             return null;
         }
 
-        String description = ((Product) command).getDescription();
-        Double price = ((Product) command).getPrice();
-        
-        log.info("adding to DB this product: " + description + " with price " + price);
+        String description = command.getDescription();
+        Double price = command.getPrice();
+
+        log.info("adding to DB this product: {} with price {}", description, price);
         productDao.save(command);
         log.info("returning from ProductDeleteController");
-        
+
         return new ModelAndView(new RedirectView("hello"));
     }
 
-    protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-        Product product = new Product();
-        product.setDescription("dummy");
-        product.setPrice(1.0d);
-        log.info("productadd object set with " + product.getDescription() + " with price " + product.getPrice());
+    protected Object formBackingObject(final HttpServletRequest request) {
+        final Product product = Product.builder()
+                .description("dummy")
+                .price(1.0d)
+                .build();
+        log.info("productadd object set with {} with price {}", product.getDescription(), product.getPrice());
         return product;
     }
-    
-    @GetMapping(value = "/productadd") 
-    public String displayLogin(Model model) {     
-	   	model.addAttribute("productadd", new Product()); 
-        return "productadd"; 
+
+    @GetMapping(value = "/productadd")
+    public String displayLogin(final Model model) {
+        model.addAttribute("productadd", Product.builder().build());
+        return "productadd";
     }
 
 }

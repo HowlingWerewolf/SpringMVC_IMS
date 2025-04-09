@@ -1,15 +1,16 @@
 package com.ims.web.validator;
 
+import com.ims.repository.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
-import com.ims.repository.model.Product;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,12 +25,11 @@ class ProductValidatorTest {
     
 	@BeforeEach
     void setUp() {
-		MockitoAnnotations.initMocks(this);
-    	product = new Product();
+    	product = Product.builder().build();
     }
 
 	@Test
-    public void testvalidateNoDescription() {
+    void testvalidateNoDescription() {
     	product.setId(1);
     	product.setDescription("");
     	product.setPrice(111d);
@@ -60,18 +60,20 @@ class ProductValidatorTest {
     
     private String getDescriptionErrorMessage() {
     	try {
-    		if (errors.getFieldError("description").getDefaultMessage() != null) {
-    			return errors.getFieldError("description").getDefaultMessage();
+			final FieldError description = Objects.requireNonNull(errors.getFieldError("description"));
+			if (description.getDefaultMessage() != null) {
+    			return description.getDefaultMessage();
     		}
-    	} catch (NullPointerException ex) {}
+    	} catch (NullPointerException ignored) {}
     	
     	return "";
     }
     
     private String getPriceErrorMessage() {
     	try {
-    		if (errors.getFieldError("price").getDefaultMessage() != null) {
-    			return errors.getFieldError("price").getDefaultMessage();
+			final FieldError price = Objects.requireNonNull(errors.getFieldError("price"));
+			if (price.getDefaultMessage() != null) {
+    			return price.getDefaultMessage();
     		}
     	} catch (NullPointerException ignored) {}
     	

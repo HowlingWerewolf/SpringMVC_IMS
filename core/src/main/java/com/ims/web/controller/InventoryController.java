@@ -3,8 +3,8 @@ package com.ims.web.controller;
 import com.ims.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,16 +16,16 @@ import java.util.Map;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class InventoryController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping(value = "/hello")
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
         String now = (new Date()).toString();
-        log.info("returning hello view with " + now);
+        log.info("returning hello view with {}", now);
 
         Map<String, Object> myModel = new HashMap<>();
         myModel.put("now", now);

@@ -3,7 +3,6 @@ package com.ims.web.controller;
 import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,47 +31,50 @@ public class ProductDeleteController {
     @Autowired
     private ProductDaoImpl productDao;
 
-    @RequestMapping(method = RequestMethod.POST, value="/productdelete") 
-    public ModelAndView onSubmit(@ModelAttribute("productdelete") Product command, BindingResult result)
-            throws ServletException {
-        
-        if(result.hasErrors()) {
+    @RequestMapping(method = RequestMethod.POST, value = "/productdelete")
+    public ModelAndView onSubmit(@ModelAttribute("productdelete") final Product command,
+                                 final BindingResult result) {
+
+        if (result.hasErrors()) {
             log.info("I know something is not ok. Errors below:");
-            for (ObjectError error : result.getAllErrors()) {
+            for (final ObjectError error : result.getAllErrors()) {
                 log.info(error.getDefaultMessage());
-            }            
+            }
             return null;
         }
 
-        int id = ((Product) command).getId();
-        String description = ((Product) command).getDescription();
-        Double price = ((Product) command).getPrice();
-        
-        log.info("deleting from DB this product: " + description + " with price " + price + " with ID " + id);
-        
+        final int id = command.getId();
+        final String description = command.getDescription();
+        final Double price = command.getPrice();
+
+        log.info("deleting from DB this product: {} with price {} with ID {}",
+                description, price, id);
+
         productDao.delete(command);
 
         log.info("returning from PriceIncreaseForm");
-        
+
         return new ModelAndView(new RedirectView("hello"));
     }
 
-    protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-        Product product = new Product();
-        product.setDescription("dummy");
-        product.setPrice(-1.0d);
-        log.info("productdelete object set with " + product.getDescription() + " with price " + product.getPrice());
+    protected Object formBackingObject(final HttpServletRequest request) {
+        final Product product = Product.builder()
+                .description("dummy")
+                .price(-1.0d)
+                .build();
+        log.info("productdelete object set with {} with price {}",
+                product.getDescription(), product.getPrice());
         return product;
     }
-    
-    @GetMapping(value = "/productdelete") 
-    public ModelAndView displayLogin(Model model) {     	
-	   
-	   	model.addAttribute("productdelete", new Product()); 
-        String now = (new java.util.Date()).toString();
+
+    @GetMapping(value = "/productdelete")
+    public ModelAndView displayLogin(final Model model) {
+
+        model.addAttribute("productdelete", Product.builder().build());
+        final String now = (new java.util.Date()).toString();
         log.info("returning productdelete view with " + now);
 
-        Map<String, Object> myModel = new HashMap<String, Object>();
+        final Map<String, Object> myModel = new HashMap<>();
         myModel.put("now", now);
         myModel.put("products", this.productService.getProducts());
 

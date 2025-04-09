@@ -10,27 +10,26 @@ import org.springframework.validation.Validator;
 @Slf4j
 public class ProductValidator implements Validator {
 
-	private int DEFAULT_MIN_PRICE = 0;
+	private final int DEFAULT_MIN_PRICE = 0;
     private int minPrice = DEFAULT_MIN_PRICE;
-    
+
     @SuppressWarnings("rawtypes")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
         return Product.class.equals(clazz);
     }
 
-    public void validate(Object obj, Errors errors) {
+    public void validate(final Object obj, final Errors errors) {
     	log.info("Validation started!");
-        Product product = (Product) obj;
+        final Product product = (Product) obj;
         
         try {
-	        if (product.getDescription().equals("")) {
+	        if (product.getDescription().isEmpty()) {
 	            errors.rejectValue("description", "error.not-specified", null, "Value required.");
-	        }
-	        else if (product.getPrice() < minPrice) {
+	        } else if (product.getPrice() < minPrice) {
 		        errors.rejectValue("price", "error.too-low", 
-		        	new Object[] {new Integer(minPrice)}, "Value too low.");
+		        	new Object[] {minPrice}, "Value too low.");
 	        }
-    	} catch (NullPointerException ex) {
+    	} catch (final NullPointerException ex) {
             errors.rejectValue("price", "error.not-specified", null, "Value required.");  
     	}
     }

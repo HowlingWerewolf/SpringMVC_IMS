@@ -126,18 +126,6 @@
     <build>
         <finalName>${name}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <!-- Always download and attach dependencies source code -->
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>false</downloadJavadocs>
-                    <!-- mvn eclipse:eclipse -Dwtpversion=2.0 -->
-                    <wtpversion>2.0</wtpversion>
-                </configuration>
-            </plugin>
-
             <!-- Set JDK Compiler Level -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -145,15 +133,6 @@
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
-                </configuration>
-            </plugin>
-
-            <!-- For Tomcat -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <path>/SpringMVC_IMS</path>
                 </configuration>
             </plugin>
         </plugins>

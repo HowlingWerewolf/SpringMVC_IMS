@@ -11,10 +11,11 @@ In addition to the project, other features added:
   - add product
   - delete product
 
+(TODO: add flyway so we don't have to run sql files manually)
 Run the createpg_db.sql
   - create the springims user
   - creates the db and the necessary tables
-  - fills up the tables with data (TODO: add flyway instead)
+  - fills up the tables with data
 
 In order to use selenium, install it to Firefox, then create 'c:/selenium' folder.
 

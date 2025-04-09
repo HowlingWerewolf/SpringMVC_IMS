@@ -2,7 +2,6 @@ package com.ims.web.controller;
 
 import com.ims.service.ProductService;
 import com.ims.web.form.PriceIncrease;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -38,20 +37,20 @@ public class PriceIncreaseFormController {
     }
 
     @PostMapping(value = "/priceincrease")
-    public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid PriceIncrease command,
-                                 BindingResult result) {
+    public ModelAndView onSubmit(@ModelAttribute("priceincrease") @Valid final PriceIncrease command,
+                                 final BindingResult result) {
 
         // TODO if the product list is empty, do not throw error
         if (result.hasErrors()) {
             log.info("I know something is not ok with the PI. Errors below:");
-            for (ObjectError error : result.getAllErrors()) {
+            for (final ObjectError error : result.getAllErrors()) {
                 log.info(error.getDefaultMessage());
             }
             return null;
         }
 
-        int increase = ((PriceIncrease) command).getPercentage();
-        log.info("Increasing prices by " + increase + "%.");
+        final int increase = command.getPercentage();
+        log.info("Increasing prices by {}%.", increase);
         productService.increasePrice(increase);
 
         log.info("returning from PriceIncreaseForm");
@@ -59,15 +58,15 @@ public class PriceIncreaseFormController {
         return new ModelAndView(new RedirectView("hello"));
     }
 
-    protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-        PriceIncrease priceIncrease = new PriceIncrease();
+    protected Object formBackingObject(final HttpServletRequest request) {
+        final PriceIncrease priceIncrease = new PriceIncrease();
         priceIncrease.setPercentage(20);
-        log.info("priceincrease object set with " + priceIncrease.getPercentage() + "%");
+        log.info("priceincrease object set with {}%", priceIncrease.getPercentage());
         return priceIncrease;
     }
 
     @GetMapping(value = "/priceincrease")
-    public String displayLogin(Model model) {
+    public String displayLogin(final Model model) {
 
         // very special thanks for this solution!!!  http://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request
         model.addAttribute("priceincrease", new PriceIncrease());

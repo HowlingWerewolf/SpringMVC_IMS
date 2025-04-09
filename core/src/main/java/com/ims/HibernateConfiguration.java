@@ -17,49 +17,49 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages="com.ims.repository.model.access")
+@EnableJpaRepositories(basePackages = "com.ims.repository.model.access")
 @EnableTransactionManagement
 @Slf4j
 public class HibernateConfiguration {
 
-	@Bean
-	@Primary
-	public DataSource dataSource() {
+    @Bean
+    @Primary
+    public DataSource dataSource() {
         log.info("Configuring datasource...");
-	    return DataSourceBuilder
-	        .create()
-	        .url("jdbc:postgresql://host.docker.internal:5432/postgres")
-	        .driverClassName("org.postgresql.Driver")
-	        .username("springims")
-	        .password("springims")
-	        .build();
-	}
+        return DataSourceBuilder
+                .create()
+                .url("jdbc:postgresql://host.docker.internal:5432/postgres")
+                .driverClassName("org.postgresql.Driver")
+                .username("springims")
+                .password("springims")
+                .build();
+    }
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {
-      HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-      vendorAdapter.setGenerateDdl(true);
+        final var vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
 
-      LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-      factory.setJpaVendorAdapter(vendorAdapter);
-      factory.setPackagesToScan("com.ims.repository.model");
-      factory.setDataSource(dataSource());
-      factory.setJpaProperties(hibernateProperties());
-      factory.afterPropertiesSet();
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setPackagesToScan("com.ims.repository.model");
+        factory.setDataSource(dataSource());
+        factory.setJpaProperties(hibernateProperties());
+        factory.afterPropertiesSet();
 
-      return factory.getObject();
+        return factory.getObject();
     }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-      JpaTransactionManager txManager = new JpaTransactionManager();
-      txManager.setEntityManagerFactory(entityManagerFactory());
-      return txManager;
+        final var txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory());
+        return txManager;
     }
 
     private Properties hibernateProperties() {
-        Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        final var properties = new Properties();
+//        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.globally_quoted_identifiers", "true");
         properties.put("hibernate.max_fetch_depth", "2");
         properties.put("hibernate.format_sql", "true");
@@ -70,27 +70,3 @@ public class HibernateConfiguration {
         return properties;
     }
 }
-
-/*
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-<hibernate-configuration>       
-  <session-factory>
-    <!-- Database connection settings -->
-    <property name="connection.driver_class">org.postgresql.Driver</property>
-    <property name="connection.url">jdbc:postgresql://localhost:5432/springims</property>
-    <property name="connection.username">springims</property>
-	<property name="connection.password">springims</property>
-	<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
-	<property name="hibernate.globally_quoted_identifiers">true</property>
-	<property name="hibernate.max_fetch_depth">2</property>
-	<property name="hibernate.format_sql">true</property>
-	<property name="hibernate.jdbc.use_get_generated_keys">true</property>
-	<property name="show_sql">true</property>
-  	<property name="javax.persistence.validation.mode">none</property>
-    <mapping class="springmvc_ims.repository.model.Product"></mapping>
-  </session-factory>
-</hibernate-configuration>
-*/
