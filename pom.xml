@@ -19,7 +19,6 @@
         <spring-security.version>6.4.4</spring-security.version>
         <jakarta.servlet.jsp.jstl-api.version>3.0.2</jakarta.servlet.jsp.jstl-api.version>
         <junit.version>4.11</junit.version>
-        <logback.version>1.0.13</logback.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
@@ -29,7 +28,7 @@
         <spring-boot-starter-web.version>3.4.4</spring-boot-starter-web.version>
         <spring-data.version>${spring-boot-starter-web.version}</spring-data.version>
         <spring-boot.version>${spring-boot-starter-web.version}</spring-boot.version>
-        <slf4j.version>1.7.22</slf4j.version>
+        <slf4j.version>2.0.17</slf4j.version>
         <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
     </properties>
 
@@ -48,16 +47,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${jcl-over-slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -130,6 +119,11 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>

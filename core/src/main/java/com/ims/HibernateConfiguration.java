@@ -1,8 +1,7 @@
 package com.ims;
 
 import jakarta.persistence.EntityManagerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +19,13 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories(basePackages="com.ims.repository.model.access")
 @EnableTransactionManagement
+@Slf4j
 public class HibernateConfiguration {
-
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Bean
 	@Primary
 	public DataSource dataSource() {
-        logger.info("Configuring datasource...");
+        log.info("Configuring datasource...");
 	    return DataSourceBuilder
 	        .create()
 	        .url("jdbc:postgresql://host.docker.internal:5432/postgres")

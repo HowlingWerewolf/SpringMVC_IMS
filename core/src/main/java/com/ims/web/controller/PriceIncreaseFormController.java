@@ -5,8 +5,7 @@ import com.ims.web.form.PriceIncrease;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
+@Slf4j
 public class PriceIncreaseFormController {
-
-    /**
-     * Logger for this class and subclasses
-     */
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ProductService productService;
@@ -48,18 +43,18 @@ public class PriceIncreaseFormController {
 
         // TODO if the product list is empty, do not throw error
         if (result.hasErrors()) {
-            logger.info("I know something is not ok with the PI. Errors below:");
+            log.info("I know something is not ok with the PI. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
-                logger.info(error.getDefaultMessage());
+                log.info(error.getDefaultMessage());
             }
             return null;
         }
 
         int increase = ((PriceIncrease) command).getPercentage();
-        logger.info("Increasing prices by " + increase + "%.");
+        log.info("Increasing prices by " + increase + "%.");
         productService.increasePrice(increase);
 
-        logger.info("returning from PriceIncreaseForm");
+        log.info("returning from PriceIncreaseForm");
 
         return new ModelAndView(new RedirectView("hello"));
     }
@@ -67,7 +62,7 @@ public class PriceIncreaseFormController {
     protected Object formBackingObject(HttpServletRequest request) throws ServletException {
         PriceIncrease priceIncrease = new PriceIncrease();
         priceIncrease.setPercentage(20);
-        logger.info("priceincrease object set with " + priceIncrease.getPercentage() + "%");
+        log.info("priceincrease object set with " + priceIncrease.getPercentage() + "%");
         return priceIncrease;
     }
 

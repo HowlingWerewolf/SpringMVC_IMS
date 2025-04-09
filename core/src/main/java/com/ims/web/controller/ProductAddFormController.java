@@ -1,10 +1,12 @@
 package com.ims.web.controller;
 
+import com.ims.repository.dao.ProductDaoImpl;
+import com.ims.repository.model.Product;
+import com.ims.service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,15 +21,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
-import com.ims.service.ProductService;
 
 @Controller
+@Slf4j
 public class ProductAddFormController {
-
-    /** Logger for this class and subclasses */
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ProductService productService;
@@ -50,9 +47,9 @@ public class ProductAddFormController {
             throws ServletException {
         
         if(result.hasErrors()) {
-            logger.info("I know something is not ok with the PI. Errors below:");
+            log.info("I know something is not ok with the PI. Errors below:");
             for (ObjectError error : result.getAllErrors()) {
-                logger.info(error.getDefaultMessage());           	
+                log.info(error.getDefaultMessage());
             }            
             return null;
         }
@@ -60,9 +57,9 @@ public class ProductAddFormController {
         String description = ((Product) command).getDescription();
         Double price = ((Product) command).getPrice();
         
-        logger.info("adding to DB this product: " + description + " with price " + price);        
+        log.info("adding to DB this product: " + description + " with price " + price);
         productDao.save(command);
-        logger.info("returning from ProductDeleteController");	
+        log.info("returning from ProductDeleteController");
         
         return new ModelAndView(new RedirectView("hello"));
     }
@@ -71,7 +68,7 @@ public class ProductAddFormController {
         Product product = new Product();
         product.setDescription("dummy");
         product.setPrice(1.0d);
-        logger.info("productadd object set with " + product.getDescription() + " with price " + product.getPrice());
+        log.info("productadd object set with " + product.getDescription() + " with price " + product.getPrice());
         return product;
     }
     

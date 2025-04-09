@@ -1,25 +1,22 @@
 package com.ims.service;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ims.repository.dao.ProductDaoImpl;
+import com.ims.repository.model.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
+import java.util.List;
 
 @Service
+@Slf4j
 public class ProductService {
-
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
     private ProductDaoImpl productDaoImpl;
     
     public List<Product> getProducts() {
-    	logger.debug("Inside SimpleProductManager getProducts()");
+    	log.debug("Inside SimpleProductManager getProducts()");
         return productDaoImpl.queryAllAsList();
     }
 

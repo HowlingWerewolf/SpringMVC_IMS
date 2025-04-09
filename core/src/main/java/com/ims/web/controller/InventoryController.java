@@ -3,8 +3,7 @@ package com.ims.web.controller;
 import com.ims.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class InventoryController {
-
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ProductService productService;
@@ -27,7 +25,7 @@ public class InventoryController {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
         String now = (new Date()).toString();
-        logger.info("returning hello view with " + now);
+        log.info("returning hello view with " + now);
 
         Map<String, Object> myModel = new HashMap<>();
         myModel.put("now", now);

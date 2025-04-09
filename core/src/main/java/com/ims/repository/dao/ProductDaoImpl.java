@@ -2,22 +2,20 @@ package com.ims.repository.dao;
 
 import com.ims.repository.model.Product;
 import com.ims.repository.model.access.ProductRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@Slf4j
 public class ProductDaoImpl {
 	
 	@Autowired
 	private ProductRepository productRepository;
 	
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
-	
-	public void testDB() {		
+	public void testDB() {
 		Product product = new Product();
 		product.setId(4);
 		product.setDescription("Test");
@@ -27,17 +25,17 @@ public class ProductDaoImpl {
 		
 		List<Product> list = queryAllAsList();
         for(Product p : list) {
-        	logger.debug(p.getDescription().toString() + " " + p.getPrice());
+        	log.debug(p.getDescription().toString() + " " + p.getPrice());
         }
 	}
 
 	public List<Product> queryAllAsList() {
-        logger.info("Getting products!");
+		log.info("Getting products!");
         List<Product> products = null;
         try {
         	products = productRepository.findAll();
 		} catch (NullPointerException ex) {
-	        logger.info("ProductDao: NPE!");
+			log.info("ProductDao: NPE!");
 		}
         return products;
     }

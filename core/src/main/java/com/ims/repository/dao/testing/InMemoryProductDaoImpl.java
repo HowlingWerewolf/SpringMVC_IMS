@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class InMemoryProductDaoImpl extends ProductDaoImpl {
 
     private List<Product> productList;
 
     public InMemoryProductDaoImpl(List<Product> productList) {
         this.productList = productList;
-        logger.info("InMemoryProductDao constructor called");
+        log.info("InMemoryProductDao constructor called");
     }
     
     @Override
