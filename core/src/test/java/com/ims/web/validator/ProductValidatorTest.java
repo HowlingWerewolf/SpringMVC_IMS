@@ -1,16 +1,20 @@
 package com.ims.web.validator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import junit.framework.TestCase;
 import com.ims.repository.model.Product;
 
-public class ProductValidatorTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
+class ProductValidatorTest {
 	
 	@InjectMocks
 	private ProductValidator productValidator;
@@ -18,8 +22,8 @@ public class ProductValidatorTest extends TestCase {
 	private Product product;
 	private Errors errors;
     
-	@Before
-    public void setUp() throws Exception {
+	@BeforeEach
+    void setUp() {
 		MockitoAnnotations.initMocks(this);
     	product = new Product();
     }
@@ -35,7 +39,7 @@ public class ProductValidatorTest extends TestCase {
     }
 
 	@Test
-    public void testValidateNoPrice() {
+    void testValidateNoPrice() {
     	product.setId(1);
     	product.setDescription("aaa");
     	product.setPrice(null);
@@ -45,7 +49,7 @@ public class ProductValidatorTest extends TestCase {
     }
 
 	@Test
-    public void testValidateTooLowPrice() {
+    void testValidateTooLowPrice() {
     	product.setId(1);
     	product.setDescription("aaa");
     	product.setPrice(-100d);
@@ -69,7 +73,7 @@ public class ProductValidatorTest extends TestCase {
     		if (errors.getFieldError("price").getDefaultMessage() != null) {
     			return errors.getFieldError("price").getDefaultMessage();
     		}
-    	} catch (NullPointerException ex) {}
+    	} catch (NullPointerException ignored) {}
     	
     	return "";
     }

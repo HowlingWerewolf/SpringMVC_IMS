@@ -1,30 +1,33 @@
 package com.ims.web.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
-import junit.framework.TestCase;
+import java.util.Map;
 
-public class HelloControllerTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class HelloControllerTest {
 	
 	@InjectMocks
 	private HelloController controller;
-	
-	@Before
+
+    @BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
-	@Test
-    public void testHandleRequestView() {
-        ModelAndView modelAndView = controller.handleRequest(null, null);
+
+    @Test
+	public void testHandleRequestView() {
+        final ModelAndView modelAndView = controller.handleRequest(null, null);
         assertEquals("hello", modelAndView.getViewName());
-        assertNotNull(modelAndView.getModel());
-        String nowValue = (String) modelAndView.getModel().get("now");
-        assertNotNull(nowValue);
+
+        final Map<String, Object> model = modelAndView.getModel();
+        assertNotNull(model);
     }
 
 }

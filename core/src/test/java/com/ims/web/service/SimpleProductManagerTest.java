@@ -3,19 +3,26 @@ package com.ims.web.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import junit.framework.TestCase;
 import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-public class SimpleProductManagerTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+@ExtendWith(MockitoExtension.class)
+class SimpleProductManagerTest {
 
 	@InjectMocks
     private ProductService productService;
@@ -35,8 +42,8 @@ public class SimpleProductManagerTest extends TestCase {
     
     private static final int POSITIVE_PRICE_INCREASE = 10;
     
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
     	MockitoAnnotations.initMocks(this);
     	
         products = new ArrayList<Product>();
@@ -54,12 +61,12 @@ public class SimpleProductManagerTest extends TestCase {
     }
 
     @Test
-    public void testGetProductsWithNoProducts() {
+    void testGetProductsWithNoProducts() {
         assertTrue(productService.getProducts().isEmpty());
     }
     
     @Test
-    public void testGetProducts() {
+    void testGetProducts() {
     	Mockito.when(productDaoImpl.queryAllAsList()).thenReturn(products);
     	
         List<Product> products = productService.getProducts();
@@ -76,7 +83,7 @@ public class SimpleProductManagerTest extends TestCase {
     }   
     
     @Test
-    public void testIncreasePriceWithNullListOfProducts() {
+    void testIncreasePriceWithNullListOfProducts() {
         try {
             productService.increasePrice(POSITIVE_PRICE_INCREASE);
         } catch(NullPointerException ex) {
@@ -85,7 +92,7 @@ public class SimpleProductManagerTest extends TestCase {
     }
     
     @Test
-    public void testIncreasePriceWithEmptyListOfProducts() {
+    void testIncreasePriceWithEmptyListOfProducts() {
         try {
             productService.increasePrice(POSITIVE_PRICE_INCREASE);
         } catch(Exception ex) {
@@ -94,7 +101,7 @@ public class SimpleProductManagerTest extends TestCase {
     }
     
     @Test
-    public void testIncreasePriceWithPositivePercentage() {
+    void testIncreasePriceWithPositivePercentage() {
     	Mockito.when(productDaoImpl.queryAllAsList()).thenReturn(products);
     	
         productService.increasePrice(POSITIVE_PRICE_INCREASE);

@@ -1,42 +1,47 @@
 package com.ims.web.controller;
 
+import com.ims.service.ProductService;
+import com.ims.web.form.PriceIncrease;
 import jakarta.servlet.ServletException;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import com.ims.service.ProductService;
-import com.ims.web.form.PriceIncrease;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PriceIncreaseFormControllerTest extends TestCase {
+@ExtendWith(MockitoExtension.class)
+class PriceIncreaseFormControllerTest {
 	
 	@InjectMocks
 	private PriceIncreaseFormController controller;
 	
 	@Mock
 	private ProductService productService;
-	
-	@Before
-	public void setUp() {
+
+	@BeforeEach
+	void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
-	public void testPriceincreaseError() throws ServletException {
+	void testPriceincreaseError() {
 		BindingResult result = mock(BindingResult.class);
 	    when(result.hasErrors()).thenReturn(true);
 		assertNull(controller.onSubmit(new PriceIncrease(), result));
 	}
 	
 	@Test
-	public void testPriceincrease() throws ServletException {	
+	void testPriceincrease() {
 		BindingResult result = mock(BindingResult.class);
 	    when(result.hasErrors()).thenReturn(false);
 		PriceIncrease priceIncrease = new PriceIncrease();
@@ -45,12 +50,12 @@ public class PriceIncreaseFormControllerTest extends TestCase {
 	}
 	
 	@Test
-	public void testFormBackingObject() throws ServletException {	
+	void testFormBackingObject() throws ServletException {
 		assertNotNull(controller.formBackingObject(null));
 	}
 	
 	@Test
-	public void testDisplayLogin() throws ServletException {	
+	void testDisplayLogin() {
 		Model model = mock(Model.class);
 		assertTrue("priceincrease".equals(controller.displayLogin(model)));
 	}

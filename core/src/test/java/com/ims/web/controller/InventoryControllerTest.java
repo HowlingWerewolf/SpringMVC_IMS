@@ -1,22 +1,27 @@
 package com.ims.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.Before;
-import org.junit.Test;
+import com.ims.repository.model.Product;
+import com.ims.service.ProductService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.servlet.ModelAndView;
 
-import junit.framework.TestCase;
-import com.ims.repository.model.Product;
-import com.ims.service.ProductService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class InventoryControllerTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@ExtendWith(MockitoExtension.class)
+class InventoryControllerTest {
 	
 	@InjectMocks
 	private InventoryController controller;
@@ -25,9 +30,9 @@ public class InventoryControllerTest extends TestCase {
 	private ProductService productService;
 	
 	List<Product> mockProducts;
-	
-	@Before
-	public void setUp() {
+
+	@BeforeEach
+	void setUp() {
 		MockitoAnnotations.initMocks(this);
 		
 		Product p1 = new Product();
@@ -49,37 +54,37 @@ public class InventoryControllerTest extends TestCase {
 
     @SuppressWarnings("rawtypes")
     @Test
-	public void testHandleRequestView() throws Exception {
-        ModelAndView modelAndView = controller.handleRequest(null, null);
+	void testHandleRequestView() {
+        final ModelAndView modelAndView = controller.handleRequest(null, null);
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
         
-        Map modelMap = (Map) modelAndView.getModel().get("model");
+        final Map modelMap = (Map) modelAndView.getModel().get("model");
         
-        String nowValue = (String) modelMap.get("now");       
+        final String nowValue = (String) modelMap.get("now");
         assertNotNull(nowValue);
         
         @SuppressWarnings("unchecked")
-		List<Product> productsValue = (List<Product>) modelMap.get("products");
-        assertTrue(productsValue.equals(mockProducts));
+		final List<Product> productsValue = (List<Product>) modelMap.get("products");
+        assertEquals(productsValue, mockProducts);
     }
 
     @SuppressWarnings("rawtypes")
     @Test
-	public void testHandleRequestViewNullModel() throws Exception {
+	void testHandleRequestViewNullModel() {
     	Mockito.when(productService.getProducts()).thenReturn(null);
     	
-        ModelAndView modelAndView = controller.handleRequest(null, null);
+        final ModelAndView modelAndView = controller.handleRequest(null, null);
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
         
-        Map modelMap = (Map) modelAndView.getModel().get("model");
+        final Map modelMap = (Map) modelAndView.getModel().get("model");
         
-        String nowValue = (String) modelMap.get("now");       
+        final String nowValue = (String) modelMap.get("now");
         assertNotNull(nowValue);
                 
         @SuppressWarnings("unchecked")
-		List<Product> productsValue = (List<Product>) modelMap.get("products");
+		final List<Product> productsValue = (List<Product>) modelMap.get("products");
         assertTrue(productsValue.isEmpty());
     }
     

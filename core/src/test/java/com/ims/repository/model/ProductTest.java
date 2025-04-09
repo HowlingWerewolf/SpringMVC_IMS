@@ -1,22 +1,31 @@
 package com.ims.repository.model;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-public class ProductTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
+class ProductTest {
 
     private Product product;
 
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         product = new Product();
     }
 
-    public void testSetDescription() {        
+    @Test
+    void testSetDescription() {
         String testDescription = "aDescription";
         product.setDescription(testDescription);
         assertEquals(testDescription, product.getDescription());
     }
 
-    public void testSetAndGetPrice() {
+    @Test
+    void testSetAndGetPrice() {
         double testPrice = 100.00;  
         product.setPrice(testPrice);
         assertEquals(testPrice, product.getPrice(), 0);
