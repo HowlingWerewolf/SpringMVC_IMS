@@ -1,4 +1,4 @@
-FROM tomcat:jdk21-temurin
+FROM tomcat:jdk25-temurin
 COPY core/target/SpringMVC_IMS.war /usr/local/tomcat/webapps/
 
 # for tryout reasons, you can log in from another container
