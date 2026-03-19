@@ -16,17 +16,40 @@ target/
 bin/
 dependency-reduced-pom.xml
 
-# Eclipse Project Files
+# Angular Build Output
 
-.classpath
-.project
-.settings/
+dist/
+.angular/
+node_modules/
 
-# IntelliJ IDEA Files
+# Logs
 
-*.iml
-*.ipr
-*.iws
-*.idea
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-README.html
+# Environment & Secrets
+
+.env
+.env.local
+.env.*.local
+
+# IDE Caches & Extensions
+
+.vscode/
+.DS_Store/
+.history/
+*.swp
+*.swo
+
+# Test Coverage
+
+coverage/
+.nyc_output/
+
+# Miscellaneous
+
+.cache/
+*.tmp
+/.idea
