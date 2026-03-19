@@ -36,7 +36,6 @@
         <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
         <commons-lang.version>2.6</commons-lang.version>
         <flyway-database-postgresql.version>11.6.0</flyway-database-postgresql.version>
-        <jackson-databind.version>2.18.2</jackson-databind.version>
     </properties>
 
     <modules>
@@ -137,11 +136,6 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-database-postgresql</artifactId>
                 <version>${flyway-database-postgresql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind.version}</version>
             </dependency>
 
             <dependency>

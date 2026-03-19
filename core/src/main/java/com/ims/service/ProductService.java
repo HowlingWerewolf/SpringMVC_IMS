@@ -31,14 +31,4 @@ public class ProductService {
         }
     }
 
-    public void addProduct(final Product product) {
-        log.debug("Adding product: {}", product.getDescription());
-        productDaoImpl.save(product);
-    }
-
-    public void deleteProduct(final Product product) {
-        log.debug("Deleting product: {}", product.getId());
-        productDaoImpl.delete(product);
-    }
-
 }
