@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 export class HelloComponent {
   message = 'Loading...';
   constructor(private http: HttpClient) {
-    this.http.get<any>(`${environment.apiBase}/root`).subscribe(r => this.message = r.message || 'no message');
+    this.http.get<any>(`${environment.apiBase}/hello`).subscribe(r => this.message = r.message || 'no message');
   }
 }
 
