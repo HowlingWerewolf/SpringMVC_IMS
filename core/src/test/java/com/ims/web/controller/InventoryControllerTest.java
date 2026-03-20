@@ -51,16 +51,15 @@ class InventoryControllerTest {
     @SuppressWarnings("rawtypes")
     @Test
     void testHandleRequestView() {
-        final ModelAndView modelAndView = controller.handleRequest(null, null);
-        assertEquals("hello", modelAndView.getViewName());
-        assertNotNull(modelAndView.getModel());
+        final var response = controller.handleRequest();
+        assertNotNull(response);
+        final var body = response.getBody();
+        assertNotNull(body);
 
-        final Map modelMap = (Map) modelAndView.getModel().get("model");
-
-        final String nowValue = (String) modelMap.get("now");
+        final String nowValue = (String) body.get("now");
         assertNotNull(nowValue);
 
-        @SuppressWarnings("unchecked") final List<Product> productsValue = (List<Product>) modelMap.get("products");
+        @SuppressWarnings("unchecked") final List<Product> productsValue = (List<Product>) body.get("products");
         assertEquals(productsValue, mockProducts);
     }
 
@@ -68,17 +67,14 @@ class InventoryControllerTest {
     @Test
     void testHandleRequestViewNullModel() {
         Mockito.when(productService.getProducts()).thenReturn(null);
+        final var response = controller.handleRequest();
+        final var body = response.getBody();
+        assertNotNull(body);
 
-        final ModelAndView modelAndView = controller.handleRequest(null, null);
-        assertEquals("hello", modelAndView.getViewName());
-        assertNotNull(modelAndView.getModel());
-
-        final Map modelMap = (Map) modelAndView.getModel().get("model");
-
-        final String nowValue = (String) modelMap.get("now");
+        final String nowValue = (String) body.get("now");
         assertNotNull(nowValue);
 
-        @SuppressWarnings("unchecked") final List<Product> productsValue = (List<Product>) modelMap.get("products");
+        @SuppressWarnings("unchecked") final List<Product> productsValue = (List<Product>) body.get("products");
         assertTrue(productsValue.isEmpty());
     }
 

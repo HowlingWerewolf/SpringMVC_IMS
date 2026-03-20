@@ -30,6 +30,9 @@ dependency-reduced-pom.xml
 *.idea
 
 README.html
-node_modules/
-core/
+web/.angular
+web/node_modules
 /build.log
+/core/src/main/webapp/dist
+/web/dist
+/web/README.md

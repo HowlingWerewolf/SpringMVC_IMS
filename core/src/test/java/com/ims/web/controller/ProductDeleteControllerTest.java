@@ -8,54 +8,31 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
 class ProductDeleteControllerTest {
 
+    @Mock
+    ProductService productService;
+
+    @Mock
+    ProductDaoImpl productDao;
+
     @InjectMocks
-    private ProductDeleteController controller;
-
-    @Mock
-    private ProductService productService;
-
-    @Mock
-    private ProductDaoImpl productDao;
+    ProductDeleteController controller;
 
     @Test
-    void testProductDeleteError() {
-        BindingResult result = mock(BindingResult.class);
-        when(result.hasErrors()).thenReturn(true);
-        assertNull(controller.onSubmit(Product.builder().build(), result));
-    }
+    void testDeleteAndList() {
+        final var list = controller.list();
+        assertNotNull(list);
 
-    @Test
-    void testProductDelete() {
-        final BindingResult result = mock(BindingResult.class);
-        when(result.hasErrors()).thenReturn(false);
-		final Product product = Product.builder()
-                .description("mock")
-                .id(1)
-                .price(1.0d)
-				.build();
-        assertNotNull(controller.onSubmit(product, result));
-    }
-
-    @Test
-    void testFormBackingObject() {
-        assertNotNull(controller.formBackingObject(null));
-    }
-
-    @Test
-    void testDisplayLogin() {
-        Model model = mock(Model.class);
-        assertNotNull("productdelete".equals(controller.displayLogin(model)));
+        final Product p = Product.builder().id(999).description("x").price(1.0).build();
+        doNothing().when(productDao).delete(p);
+        final var resp = controller.deleteByBody(p);
+        assertNotNull(resp);
     }
 
 }

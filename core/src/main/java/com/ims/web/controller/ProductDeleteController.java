@@ -3,82 +3,56 @@ package com.ims.web.controller;
 import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/api")
 public class ProductDeleteController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+    private final ProductDaoImpl productDao;
 
-    /* TODO: handle with service */
-    @Autowired
-    private ProductDaoImpl productDao;
-
-    @RequestMapping(method = RequestMethod.POST, value = "/productdelete")
-    public ModelAndView onSubmit(@ModelAttribute("productdelete") final Product command,
-                                 final BindingResult result) {
-
-        if (result.hasErrors()) {
-            log.info("I know something is not ok. Errors below:");
-            for (final ObjectError error : result.getAllErrors()) {
-                log.info(error.getDefaultMessage());
-            }
-            return null;
+    // Delete by id provided in path
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<Map<String, Object>> deleteById(@PathVariable("id") final Integer id) {
+        log.info("Deleting product with id {}", id);
+        final var productOpt = productService.getProducts().stream().filter(p -> p.getId() == id).findFirst();
+        if (productOpt.isEmpty()) {
+            return ResponseEntity.status(404).body(Map.of("status", "not_found", "id", id));
         }
-
-        final int id = command.getId();
-        final String description = command.getDescription();
-        final Double price = command.getPrice();
-
-        log.info("deleting from DB this product: {} with price {} with ID {}",
-                description, price, id);
-
-        productDao.delete(command);
-
-        log.info("returning from PriceIncreaseForm");
-
-        return new ModelAndView(new RedirectView("hello"));
+        productDao.delete(productOpt.get());
+        return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
     }
 
-    protected Object formBackingObject(final HttpServletRequest request) {
-        final Product product = Product.builder()
-                .description("dummy")
-                .price(-1.0d)
-                .build();
-        log.info("productdelete object set with {} with price {}",
-                product.getDescription(), product.getPrice());
-        return product;
+    // Delete by sending full product object in body
+    @DeleteMapping("/product")
+    public ResponseEntity<Map<String, Object>> deleteByBody(@RequestBody final Product command) {
+        final int id = command.getId();
+        log.info("Deleting product from body with id {}", id);
+        productDao.delete(command);
+        return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
     }
 
     @GetMapping(value = "/productdelete")
-    public ModelAndView displayLogin(final Model model) {
-
-        model.addAttribute("productdelete", Product.builder().build());
-        final String now = (new java.util.Date()).toString();
-        log.info("returning productdelete view with " + now);
-
+    public ResponseEntity<Map<String, Object>> list() {
         final Map<String, Object> myModel = new HashMap<>();
-        myModel.put("now", now);
+        myModel.put("now", (new java.util.Date()).toString());
         myModel.put("products", this.productService.getProducts());
-
-        return new ModelAndView("productdelete", "model", myModel);
+        return ResponseEntity.ok(myModel);
     }
+
 
 }
