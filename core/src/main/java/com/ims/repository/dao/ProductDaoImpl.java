@@ -1,7 +1,7 @@
 package com.ims.repository.dao;
 
 import com.ims.repository.model.Product;
-import com.ims.repository.model.access.ProductRepository;
+import com.ims.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
