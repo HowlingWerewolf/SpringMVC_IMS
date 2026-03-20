@@ -1,39 +1,40 @@
 package com.ims.web.controller;
 
-import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.service.ProductService;
 import com.ims.web.dto.ProductDTO;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doNothing;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 class ProductDTODeleteControllerTest {
 
-    @Mock
-    ProductService productService;
+    @Test
+    void testDeleteAndList() {
+        // create a stub ProductService implementation
+        final ProductService stubService = new ProductService(null, null) {
+            @Override
+            public java.util.List<com.ims.repository.model.Product> getProducts() {
+                return Collections.emptyList();
+            }
 
-    @Mock
-    ProductDaoImpl productDao;
+            @Override
+            public void delete(final com.ims.web.dto.ProductDTO productDTO) {
+                // no-op
+            }
+        };
 
-    @InjectMocks
-    ProductDeleteController controller;
+        final ProductDeleteController controller = new ProductDeleteController(stubService);
 
-    // FIXME AI
-//    @Test
-//    void testDeleteAndList() {
-//        final var list = controller.list();
-//        assertNotNull(list);
-//
-//        final ProductDTO p = ProductDTO.builder().id(999).description("x").price(1.0).build();
-//        doNothing().when(productDao).delete(p);
-//        final var resp = controller.deleteByBody(p);
-//        assertNotNull(resp);
-//    }
+        final var list = controller.list();
+        assertNotNull(list);
+
+        final ProductDTO p = ProductDTO.builder().id(999).description("x").price(1.0).build();
+        final var resp = controller.deleteByBody(p);
+        assertNotNull(resp);
+        assertEquals(200, resp.getStatusCode().value());
+    }
 
 }

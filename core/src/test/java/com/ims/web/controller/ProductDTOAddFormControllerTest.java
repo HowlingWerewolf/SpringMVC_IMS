@@ -1,40 +1,36 @@
 package com.ims.web.controller;
 
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
+import com.ims.web.dto.ProductDTO;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doNothing;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+@SuppressWarnings("rawtypes")
 class ProductDTOAddFormControllerTest {
 
-    @Mock
-    ProductService productService;
+    @Test
+    void testDisplayAndAddApi() {
+        // Create a stub ProductService that overrides save to do nothing
+        final ProductService stubService = new ProductService(null, null) {
+            @Override
+            public void save(final com.ims.web.dto.ProductDTO productDTO) {
+                // no-op stub
+            }
+        };
 
-    @Mock
-    ProductDaoImpl productDao;
+        final ProductAddFormController controller = new ProductAddFormController(stubService);
 
-    @InjectMocks
-    ProductAddFormController controller;
+        final var disp = controller.display();
+        assertNotNull(disp);
 
-    // FIXME AI
-//    @Test
-//    void testDisplayAndAddApi() {
-//        final var disp = controller.display();
-//        assertNotNull(disp);
-//
-//        final Product p = Product.builder().id(1).description("x").price(1.0).build();
-//        doNothing().when(productDao).save(p);
-//        final var resp = controller.onSubmitApi(p);
-//        assertNotNull(resp);
-//        assertNotNull(controller.display());
-//    }
+        final ProductDTO p = ProductDTO.builder().id(1).description("x").price(1.0).build();
+        final var resp = controller.onSubmitApi(p);
+        assertNotNull(resp);
+        // Controller returns ResponseEntity.ok(Map.of("status","created")) -> 200
+        assertEquals(200, resp.getStatusCode().value());
+        assertNotNull(controller.display());
+    }
 
 }
