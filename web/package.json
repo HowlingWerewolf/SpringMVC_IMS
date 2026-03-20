@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve ims-frontend",
-    "build": "ng build --configuration=production",
+    "start": "ng serve ims-frontend --port 4200 --proxy-config proxy.conf.json",
+    "start:dev": "ng serve ims-frontend --host 127.0.0.1 --port 4201 --proxy-config proxy.conf.json",
+    "build": "ng build --configuration=production --base-href /SpringMVC_IMS/ --deploy-url /SpringMVC_IMS/",
     "deploy": "npm run build && npx cpy \"dist/**\" \"../core/src/main/webapp/\" --parents",
     "test": "ng test",
     "lint": "ng lint"
@@ -31,4 +32,3 @@
     "cpy-cli": "^3.1.1"
   }
 }
-
