@@ -48,6 +48,10 @@ public class ProductDaoImpl {
         productRepository.delete(product);
     }
 
+    public void deleteById(final Integer id) {
+        productRepository.deleteById(id);
+    }
+
     public void update(final Product product) {
         save(product);
     }

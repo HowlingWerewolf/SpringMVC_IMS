@@ -15,7 +15,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class ProductValidatorTest {
+class ProductDTOValidatorTest {
 	
 	@InjectMocks
 	private ProductValidator productValidator;

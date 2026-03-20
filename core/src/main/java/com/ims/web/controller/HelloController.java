@@ -4,10 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Date;
 import java.util.Map;
@@ -17,7 +13,7 @@ import java.util.Map;
 public class HelloController {
 
     @GetMapping(value = "/api/root")
-    public ResponseEntity<Map<String, String>> handleRequest() {
+    public ResponseEntity<Map<String, String>> greet() {
         try {
             final String now = (new Date()).toString();
             log.info("Returning hello JSON at {}", now);
@@ -27,7 +23,5 @@ public class HelloController {
             return ResponseEntity.status(500).body(Map.of("error", "internal error"));
         }
     }
-
-    // (legacy MVC removed) use REST endpoint handleRequest() instead
 
 }

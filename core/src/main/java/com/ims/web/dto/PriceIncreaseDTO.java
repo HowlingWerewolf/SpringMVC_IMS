@@ -1,4 +1,4 @@
-package com.ims.web.form;
+package com.ims.web.dto;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 @Slf4j
-public class PriceIncrease {
+public class PriceIncreaseDTO {
 
     private int percentage;
 

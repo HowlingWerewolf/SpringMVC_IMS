@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @ExtendWith(MockitoExtension.class)
-class SimpleProductManagerTest {
+class SimpleProductDTOManagerTest {
 
     @InjectMocks
     private ProductService productService;

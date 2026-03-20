@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HelloControllerTest {
 
 	@Test
-	void testHandleRequestReturnsMessageAndNow() {
+	void testGreetReturnsMessageAndNow() {
 		final HelloController controller = new HelloController();
-		final var resp = controller.handleRequest();
+		final var resp = controller.greet();
 		assertNotNull(resp);
 		// status code 200 expected
 		assertEquals(200, resp.getStatusCode().value());

@@ -1,16 +1,15 @@
 package com.ims.web.controller;
 
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
+import com.ims.web.dto.ProductDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import java.util.Map;
 public class ProductDeleteController {
 
     private final ProductService productService;
-    private final ProductDaoImpl productDao;
 
     // Delete by id provided in path
     @DeleteMapping("/product/{id}")
@@ -33,16 +31,16 @@ public class ProductDeleteController {
         if (productOpt.isEmpty()) {
             return ResponseEntity.status(404).body(Map.of("status", "not_found", "id", id));
         }
-        productDao.delete(productOpt.get());
+        productService.deleteByID(id);
         return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
     }
 
     // Delete by sending full product object in body
     @DeleteMapping("/product")
-    public ResponseEntity<Map<String, Object>> deleteByBody(@RequestBody final Product command) {
-        final int id = command.getId();
+    public ResponseEntity<Map<String, Object>> deleteByBody(@RequestBody final ProductDTO productDTO) {
+        final int id = productDTO.getId();
         log.info("Deleting product from body with id {}", id);
-        productDao.delete(command);
+        productService.delete(productDTO);
         return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
     }
 
@@ -50,7 +48,7 @@ public class ProductDeleteController {
     public ResponseEntity<Map<String, Object>> list() {
         final Map<String, Object> myModel = new HashMap<>();
         myModel.put("now", (new java.util.Date()).toString());
-        myModel.put("products", this.productService.getProducts());
+        myModel.put("products", productService.getProducts());
         return ResponseEntity.ok(myModel);
     }
 

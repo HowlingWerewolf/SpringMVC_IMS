@@ -1,7 +1,7 @@
 package com.ims.web.controller;
 
 import com.ims.service.ProductService;
-import com.ims.web.form.PriceIncrease;
+import com.ims.web.dto.PriceIncreaseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +24,9 @@ public class PriceIncreaseFormController {
     private final ProductService productService;
 
     @PostMapping(value = "/priceincrease")
-    public ResponseEntity<Object> onSubmitApi(@RequestBody @Valid final PriceIncrease command) {
+    public ResponseEntity<Object> onSubmitApi(@RequestBody @Valid final PriceIncreaseDTO priceIncreaseDTO) {
         // Validation issues will be handled by Spring's MethodArgumentNotValidException
-        final int increase = command.getPercentage();
+        final int increase = priceIncreaseDTO.getPercentage();
         log.info("Increasing prices by {}%.", increase);
         productService.increasePrice(increase);
 
@@ -36,16 +36,11 @@ public class PriceIncreaseFormController {
 
     @GetMapping(value = "/priceincrease")
     public ResponseEntity<Map<String, Object>> display() {
-        final PriceIncrease pi = new PriceIncrease();
+        final PriceIncreaseDTO pi = new PriceIncreaseDTO();
         pi.setPercentage(20);
         final Map<String, Object> response = new HashMap<>();
         response.put("priceincrease", pi);
         return ResponseEntity.ok(response);
     }
-
-    // (legacy MVC removed) use REST endpoints /api/priceincrease instead
-    // (legacy MVC removed) use REST endpoints /api/priceincrease instead
-    // (legacy MVC removed) use REST endpoints /api/priceincrease instead
-    // (legacy MVC removed) use REST endpoints /api/priceincrease instead
 
 }

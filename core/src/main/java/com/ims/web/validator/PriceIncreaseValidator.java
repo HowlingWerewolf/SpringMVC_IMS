@@ -1,6 +1,6 @@
 package com.ims.web.validator;
 
-import com.ims.web.form.PriceIncrease;
+import com.ims.web.dto.PriceIncreaseDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,18 +21,13 @@ public class PriceIncreaseValidator implements Validator {
 
     @SuppressWarnings("rawtypes")
     public boolean supports(final Class clazz) {
-        return PriceIncrease.class.equals(clazz);
+        return PriceIncreaseDTO.class.equals(clazz);
     }
 
     public void validate(final Object obj, final Errors errors) {
         log.info("Validation started!");
 
-        final PriceIncrease pi = (PriceIncrease) obj;
-
-        if (pi == null) {
-            errors.rejectValue("percentage", "error.not-specified", null, "Value required.");
-            return;
-        }
+        final PriceIncreaseDTO pi = (PriceIncreaseDTO) obj;
 
         log.info("Validating with {}: {}", pi, pi.getPercentage());
         if (pi.getPercentage() > maxPercentage) {

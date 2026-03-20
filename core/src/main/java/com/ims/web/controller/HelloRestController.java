@@ -12,10 +12,9 @@ import java.util.Map;
 public class HelloRestController {
 
     @GetMapping("/hello-message")
-    public ResponseEntity<Map<String, String>> hello() {
+    public ResponseEntity<Map<String, String>> greet() {
         return ResponseEntity.ok(Map.of("message", "Hello from server"));
     }
-
 
 }
 

@@ -1,7 +1,7 @@
 																								package com.ims.web.controller;
 
 																								import com.ims.service.ProductService;
-																								import com.ims.web.form.PriceIncrease;
+																								import com.ims.web.dto.PriceIncreaseDTO;
 																								import org.junit.jupiter.api.Test;
 																								import org.junit.jupiter.api.extension.ExtendWith;
 																								import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@
 																								import static org.mockito.Mockito.doNothing;
 
 																								@ExtendWith(MockitoExtension.class)
-																								class PriceIncreaseFormControllerTest {
+																								class PriceIncreaseDTOFormControllerTest {
 
 																									@Mock
 																									ProductService productService;
@@ -30,7 +30,7 @@
 								final Map<String, Object> body = disp.getBody();
 								assertNotNull(body);
 
-																										final PriceIncrease cmd = new PriceIncrease();
+																										final PriceIncreaseDTO cmd = new PriceIncreaseDTO();
 																										cmd.setPercentage(10);
 																										doNothing().when(productService).increasePrice(10);
 																										final var resp = controller.onSubmitApi(cmd);

@@ -1,8 +1,8 @@
 package com.ims.web.controller;
 
-import com.ims.repository.dao.ProductDaoImpl;
 import com.ims.repository.model.Product;
 import com.ims.service.ProductService;
+import com.ims.web.dto.ProductDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +23,14 @@ public class ProductAddFormController {
 
     private final ProductService productService;
 
-    private final ProductDaoImpl productDao;
-
     @PostMapping(value = "/productadd")
-    public ResponseEntity<Object> onSubmitApi(@RequestBody @Valid final Product command) {
+    public ResponseEntity<Object> onSubmitApi(@RequestBody @Valid final ProductDTO productDTO) {
         // Validation handled by framework; if invalid, Spring will return 400
-        final String description = command.getDescription();
-        final Double price = command.getPrice();
+        final String description = productDTO.getDescription();
+        final Double price = productDTO.getPrice();
 
         log.info("adding to DB this product: {} with price {}", description, price);
-        productDao.save(command);
+        productService.save(productDTO);
         log.info("returning from ProductAddFormController");
 
         return ResponseEntity.ok(Map.of("status", "created"));
@@ -42,7 +40,5 @@ public class ProductAddFormController {
     public ResponseEntity<Product> display() {
         return ResponseEntity.ok(Product.builder().build());
     }
-
-    // (legacy MVC removed) use REST endpoints /api/productadd instead
 
 }
