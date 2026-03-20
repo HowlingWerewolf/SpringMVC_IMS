@@ -1,4 +1,4 @@
-package com.ims.repository.model;
+package com.ims.data.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

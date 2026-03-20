@@ -1,6 +1,6 @@
 package com.ims.web.mapper;
 
-import com.ims.repository.model.Product;
+import com.ims.data.model.Product;
 import com.ims.web.dto.ProductDTO;
 import org.springframework.stereotype.Component;
 

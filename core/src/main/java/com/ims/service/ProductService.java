@@ -1,7 +1,7 @@
 package com.ims.service;
 
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
+import com.ims.data.dao.ProductDaoImpl;
+import com.ims.data.model.Product;
 import com.ims.web.dto.ProductDTO;
 import com.ims.web.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +36,6 @@ public class ProductService {
 
     public void save(final ProductDTO productDTO) {
         productDaoImpl.save(productMapper.map(productDTO));
-    }
-
-    public void delete(final ProductDTO productDTO) {
-        productDaoImpl.delete(productMapper.map(productDTO));
-    }
-
-    public void delete(final Product product) {
-        productDaoImpl.delete(product);
     }
 
     public void deleteByID(final Integer id) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 @Slf4j
-public class PriceIncreaseDTO {
+public class PriceDTO {
 
     private int percentage;
 

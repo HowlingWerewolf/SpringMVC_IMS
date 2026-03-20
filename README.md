@@ -15,7 +15,15 @@ Thanks to flyway, the basic tables are set up by default.
   - product table, filled up with data
   - user springims that can access this table
 
-In order to use selenium, install it to Firefox, then create 'c:/selenium' folder.
+2026 March:
+  - migrated jsp to angular 21
 
- Start:
-  http://localhost:8080/SpringMVC_IMS/
+Start:
+    - frontend by
+        cd web
+        npm ci
+        npm b
+        ng serve
+    - backend by
+        start.bat
+  http://localhost:4200

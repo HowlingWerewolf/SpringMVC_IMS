@@ -1,6 +1,6 @@
 package com.ims.web.validator;
 
-import com.ims.web.dto.PriceIncreaseDTO;
+import com.ims.web.dto.PriceDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,39 +13,39 @@ import org.springframework.validation.Errors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class PriceIncreaseDTOValidatorTest {
+class PriceDTOValidatorTest {
 	
 	@InjectMocks
-	private PriceIncreaseValidator priceIncreaseValidator;
+	private PriceValidator priceValidator;
 	
-	private PriceIncreaseDTO priceIncreaseDTO;
+	private PriceDTO priceDTO;
 	private Errors errors;
 
 	@BeforeEach
     void setUp() {
 		MockitoAnnotations.initMocks(this);
-    	priceIncreaseDTO = new PriceIncreaseDTO();
-    	errors = new BeanPropertyBindingResult(priceIncreaseDTO, "percentage");
+    	priceDTO = new PriceDTO();
+    	errors = new BeanPropertyBindingResult(priceDTO, "percentage");
     }
 
 	@Test
     void testValidateNull() {
-    	priceIncreaseDTO = null;
-    	priceIncreaseValidator.validate(priceIncreaseDTO, errors);
+    	priceDTO = null;
+    	priceValidator.validate(priceDTO, errors);
     	assertEquals("Value required.", getErrorMessage()); 
     }
 
 	@Test
     void testValidateTooLow() {
-    	priceIncreaseDTO.setPercentage(0);
-    	priceIncreaseValidator.validate(priceIncreaseDTO, errors);
+    	priceDTO.setPercentage(0);
+    	priceValidator.validate(priceDTO, errors);
     	assertEquals("Value too low.", getErrorMessage());    	
     }
 
 	@Test
     void testValidateTooHigh() {
-    	priceIncreaseDTO.setPercentage(100);
-    	priceIncreaseValidator.validate(priceIncreaseDTO, errors);
+    	priceDTO.setPercentage(100);
+    	priceValidator.validate(priceDTO, errors);
     	assertEquals("Value too high.", getErrorMessage()); 
     }
     

@@ -1,7 +1,7 @@
 package com.ims.web.service;
 
-import com.ims.repository.dao.ProductDaoImpl;
-import com.ims.repository.model.Product;
+import com.ims.data.dao.ProductDaoImpl;
+import com.ims.data.model.Product;
 import com.ims.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

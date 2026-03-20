@@ -2,26 +2,42 @@ package com.ims.web.controller;
 
 import com.ims.service.ProductService;
 import com.ims.web.dto.ProductDTO;
+import com.ims.web.mapper.ProductMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class ProductDeleteController {
+public class ProductController {
 
     private final ProductService productService;
+    private final ProductMapper productMapper;
+
+    @GetMapping(value = "/products")
+    public ResponseEntity<List<ProductDTO>> getProducts() {
+        log.info("REST API: Fetching all products via /api/products");
+        try {
+            final List<ProductDTO> products = productService.getProducts().stream().map(productMapper::map).toList();
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            log.error("Error fetching products", e);
+            return ResponseEntity.status(500).build();
+        }
+    }
 
     // Delete by id provided in path
     @DeleteMapping("/product/{id}")
@@ -35,22 +51,18 @@ public class ProductDeleteController {
         return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
     }
 
-    // Delete by sending full product object in body
-    @DeleteMapping("/product")
-    public ResponseEntity<Map<String, Object>> deleteByBody(@RequestBody final ProductDTO productDTO) {
-        final int id = productDTO.getId();
-        log.info("Deleting product from body with id {}", id);
-        productService.delete(productDTO);
-        return ResponseEntity.ok(Map.of("status", "deleted", "id", id));
-    }
+    @PostMapping(value = "/productadd")
+    public ResponseEntity<Object> onSubmitApi(@RequestBody @Valid final ProductDTO productDTO) {
+        // Validation handled by framework; if invalid, Spring will return 400
+        final String description = productDTO.getDescription();
+        final Double price = productDTO.getPrice();
 
-    @GetMapping(value = "/productdelete")
-    public ResponseEntity<Map<String, Object>> list() {
-        final Map<String, Object> myModel = new HashMap<>();
-        myModel.put("now", (new java.util.Date()).toString());
-        myModel.put("products", productService.getProducts());
-        return ResponseEntity.ok(myModel);
-    }
+        log.info("adding to DB this product: {} with price {}", description, price);
+        productService.save(productDTO);
+        log.info("returning from ProductAddFormController");
 
+        return ResponseEntity.ok(Map.of("status", "created"));
+    }
 
 }
+
