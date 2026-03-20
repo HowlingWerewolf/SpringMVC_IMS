@@ -29,12 +29,22 @@ import { environment } from '../../environments/environment';
       </label>
       <button type="submit">Add</button>
     </form>
+
+    <h2>Increase prices</h2>
+    <form (ngSubmit)="increasePrices(); $event.preventDefault();">
+      <label>
+        Percentage (%)
+        <input type="number" [(ngModel)]="increasePercentage" name="increase" />
+      </label>
+      <button type="submit">Increase</button>
+    </form>
   `
 })
 export class ProductsComponent implements OnInit {
   products: any[] | null = null;
   newDescription = '';
   newPrice: number | null = null;
+  increasePercentage: number | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -43,12 +53,42 @@ export class ProductsComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    this.http.get<any>(`${environment.apiBase}/hello`).subscribe(r => this.products = r.products || []);
+    // Try the configured apiBase first, then fall back to some common alternatives
+    const attempts = [
+      `${environment.apiBase}/products`,
+      // Fallback to legacy hello endpoint if present
+      `${environment.apiBase}/hello`,
+      // Try without context path (backend mounted at root)
+      `http://localhost:8080/api/products`,
+      // Try relative path (useful when using dev-server proxy)
+      `/api/products`,
+      `/api/hello`
+    ];
+
+    const tryNext = (i: number) => {
+      if (i >= attempts.length) {
+        console.error('All product fetch attempts failed');
+        this.products = [];
+        return;
+      }
+      const url = attempts[i];
+      this.http.get<any>(url).subscribe({
+        next: (r) => this.products = Array.isArray(r) ? r : (r?.products || []),
+        error: (err) => {
+          // If 404 or other error, try the next candidate
+          console.warn(`GET ${url} failed:`, err?.status || err);
+          tryNext(i + 1);
+        }
+      });
+    };
+
+    tryNext(0);
   }
 
   addProduct(): void {
     if (!this.newDescription || this.newPrice == null) return;
     const payload = { description: this.newDescription, price: Number(this.newPrice) };
+    // Some deployments use legacy /api/productadd; try that endpoint first, fall back to /api/products
     this.http.post<any>(`${environment.apiBase}/productadd`, payload).subscribe({
       next: () => {
         this.newDescription = '';
@@ -56,6 +96,25 @@ export class ProductsComponent implements OnInit {
         this.fetchProducts();
       },
       error: (err) => console.error('Add product failed', err)
+    });
+  }
+
+  increasePrices(): void {
+    if (this.increasePercentage == null) return;
+    const pct = Number(this.increasePercentage);
+    if (isNaN(pct) || pct <= 0 || pct > 50) {
+      // Backend requires percentage between 1 and 50
+      console.error('Percentage must be between 1 and 50');
+      alert('Please enter a percentage between 1 and 50');
+      return;
+    }
+    const payload = { percentage: pct };
+    this.http.post<any>(`${environment.apiBase}/priceincrease`, payload).subscribe({
+      next: () => {
+        this.increasePercentage = null;
+        this.fetchProducts();
+      },
+      error: (err) => console.error('Increase prices failed', err)
     });
   }
 

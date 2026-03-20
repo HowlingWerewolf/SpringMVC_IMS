@@ -13,8 +13,26 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        // Serve static resources (index.html, JS, CSS) from the webapp root and common classpath locations
-        registry.addResourceHandler("/**")
+        // Serve static resources (index.html, JS, CSS) from the webapp root and common classpath locations.
+        // IMPORTANT: do not register a catch-all pattern like '/**' because that will intercept
+        // API paths (e.g. '/api/products') and Spring will attempt to serve them as static files
+        // resulting in "No static resource" 404s. Instead register only the patterns that
+        // correspond to the frontend static assets.
+        registry.addResourceHandler(
+                "/index.html",
+                "/favicon.ico",
+                "/assets/**",
+                "/static/**",
+                "/webjars/**",
+                "/*.js",
+                "/*.css",
+                "/*.map",
+                "/*.svg",
+                "/*.png",
+                "/*.woff2",
+                "/*.woff",
+                "/*.ttf"
+        )
                 .addResourceLocations("/", "classpath:/META-INF/resources/", "classpath:/static/", "classpath:/public/")
                 .setCachePeriod(0);
     }
