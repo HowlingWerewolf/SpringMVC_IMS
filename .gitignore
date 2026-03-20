@@ -30,3 +30,6 @@ dependency-reduced-pom.xml
 *.idea
 
 README.html
+node_modules/
+core/
+/build.log
