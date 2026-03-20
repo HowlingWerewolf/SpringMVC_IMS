@@ -1,0 +1,34 @@
+package com.ims.data.model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
+class ProductDTOTest {
+
+    private Product product;
+
+    @BeforeEach
+    void setUp() {
+        product = Product.builder().build();
+    }
+
+    @Test
+    void testSetDescription() {
+        String testDescription = "aDescription";
+        product.setDescription(testDescription);
+        assertEquals(testDescription, product.getDescription());
+    }
+
+    @Test
+    void testSetAndGetPrice() {
+        double testPrice = 100.00;  
+        product.setPrice(testPrice);
+        assertEquals(testPrice, product.getPrice(), 0);
+    }
+  
+}

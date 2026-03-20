@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@EntityScan(basePackages="com.ims.repository.model")
+@EntityScan(basePackages="com.ims.data.model")
 public class AppConfig {
     
     @Bean

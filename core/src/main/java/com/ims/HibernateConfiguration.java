@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.ims.repository.model.access")
+@EnableJpaRepositories(basePackages = "com.ims.data.repository")
 @EnableTransactionManagement
 @Slf4j
 public class HibernateConfiguration {
@@ -42,7 +42,7 @@ public class HibernateConfiguration {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.ims.repository.model");
+        factory.setPackagesToScan("com.ims.data.model");
         factory.setDataSource(dataSource());
         factory.setJpaProperties(hibernateProperties());
         factory.afterPropertiesSet();
@@ -59,7 +59,6 @@ public class HibernateConfiguration {
 
     private Properties hibernateProperties() {
         final var properties = new Properties();
-//        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.globally_quoted_identifiers", "true");
         properties.put("hibernate.max_fetch_depth", "2");
         properties.put("hibernate.format_sql", "true");

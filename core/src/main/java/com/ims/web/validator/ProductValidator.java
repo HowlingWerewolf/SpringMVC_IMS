@@ -1,6 +1,6 @@
 package com.ims.web.validator;
 
-import com.ims.repository.model.Product;
+import com.ims.data.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,10 +11,8 @@ import org.springframework.validation.Validator;
 public class ProductValidator implements Validator {
 
 	private final int DEFAULT_MIN_PRICE = 0;
-    private int minPrice = DEFAULT_MIN_PRICE;
 
-    @SuppressWarnings("rawtypes")
-	public boolean supports(final Class clazz) {
+    public boolean supports(final Class clazz) {
         return Product.class.equals(clazz);
     }
 
@@ -23,7 +21,8 @@ public class ProductValidator implements Validator {
         final Product product = (Product) obj;
         
         try {
-	        if (product.getDescription().isEmpty()) {
+            int minPrice = DEFAULT_MIN_PRICE;
+            if (product.getDescription().isEmpty()) {
 	            errors.rejectValue("description", "error.not-specified", null, "Value required.");
 	        } else if (product.getPrice() < minPrice) {
 		        errors.rejectValue("price", "error.too-low", 
