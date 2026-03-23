@@ -1,12 +1,19 @@
 package com.ims;
 
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @SpringBootApplication
 @Slf4j
@@ -22,7 +29,14 @@ public class App extends SpringBootServletInitializer {
     }
 
     @Override
-    public void onStartup(final ServletContext servletContext) {
+    public void onStartup(final ServletContext servletContext) throws ServletException {
+        // Ensure Spring Boot's startup logic runs so the WebApplicationContext and
+        // associated listeners (ContextLoaderListener, DispatcherServlet registration, etc.)
+        // are properly registered when running as a WAR in an external servlet container.
+        // Do not swallow exceptions here: if onStartup fails, the application should
+        // fail fast so the missing root WebApplicationContext error is visible
+        // and the deployment can be corrected.
+        super.onStartup(servletContext);
         final Flyway flyway = Flyway.configure()
                 .dataSource("jdbc:postgresql://host.docker.internal:5432/postgres",
                         "postgres", "example")
@@ -34,5 +48,28 @@ public class App extends SpringBootServletInitializer {
 
         log.info("Starting migration");
         flyway.migrate();
+    }
+
+    /**
+     * Ensure a root WebApplicationContext is available via a ContextLoaderListener.
+     * Some actuator endpoints (for example the servlet-based operations such as
+     * /actuator/mappings) look up the root WebApplicationContext from the
+     * ServletContext attribute. If none is present (e.g. in some WAR setups),
+     * register it here so actuator works consistently.
+     */
+    @Bean
+    public ServletContextInitializer registerRootContext(ApplicationContext applicationContext) {
+        return servletContext -> {
+            if (WebApplicationContextUtils.getWebApplicationContext(servletContext) == null) {
+                if (applicationContext instanceof WebApplicationContext webCtx) {
+                    servletContext.addListener(new ContextLoaderListener(webCtx));
+                    log.info("Registered ContextLoaderListener with application WebApplicationContext");
+                } else {
+                    log.warn("ApplicationContext is not a WebApplicationContext; cannot register ContextLoaderListener");
+                }
+            } else {
+                log.debug("Root WebApplicationContext already present; no ContextLoaderListener registered");
+            }
+        };
     }
 }
