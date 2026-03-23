@@ -1,4 +1,4 @@
-INSERT INTO public."PRODUCTS"("DESCRIPTION", "PRICE")
+INSERT INTO product(DESCRIPTION, PRICE)
 	VALUES
 	    ('Lamp', 5.78),
 	    ('Table', 75.29),

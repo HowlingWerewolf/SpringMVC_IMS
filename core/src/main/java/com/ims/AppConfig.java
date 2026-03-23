@@ -11,19 +11,14 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 @EntityScan(basePackages="com.ims.data.model")
 public class AppConfig {
-    
-    @Bean
-    public Validator localValidatorFactoryBean() {
-       return new LocalValidatorFactoryBean();
-    }
-    
-    @Bean
-    public MessageSource messageSource() {
-    	final var messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
+
+//    @Bean
+//    public MessageSource messageSource() {
+//    	final var messageSource = new ResourceBundleMessageSource();
+//        messageSource.setBasenames("messages");
+//        messageSource.setDefaultEncoding("UTF-8");
+//        return messageSource;
+//    }
 
 }
 

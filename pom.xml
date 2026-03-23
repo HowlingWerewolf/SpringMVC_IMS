@@ -21,8 +21,8 @@
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
-        <hibernate-core.version>6.6.44.Final</hibernate-core.version>
-        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        <hibernate-core.version>7.3.0.Final</hibernate-core.version>
+        <hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
         <postgresql-jdbc.version>42.7.10</postgresql-jdbc.version>
         <flyway-database-postgresql.version>11.6.0</flyway-database-postgresql.version>
         <mockito.version>1.10.19</mockito.version>
@@ -47,12 +47,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot-starter.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -62,6 +56,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring-boot-starter.version}</version>
             </dependency>
             <dependency>
@@ -80,16 +79,31 @@
                 <version>${spring-boot-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.servlet</groupId>
-                <artifactId>jakarta.servlet-api</artifactId>
-                <version>${jakarta.servlet-api.version}</version>
-                <scope>provided</scope>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.21.2</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.21.2</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>jakarta.servlet</groupId>-->
+<!--                <artifactId>jakarta.servlet-api</artifactId>-->
+<!--                <version>${jakarta.servlet-api.version}</version>-->
+<!--                <scope>provided</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.hibernate</groupId>-->
+<!--                <artifactId>hibernate-validator</artifactId>-->
+<!--                <version>${hibernate-validator.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>jakarta.validation</groupId>-->
+<!--                <artifactId>jakarta.validation-api</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
