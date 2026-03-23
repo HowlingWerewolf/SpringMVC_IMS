@@ -39,12 +39,14 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-        // Forward root and any non-api, non-extension paths to index.html so client-side routing can work
+        // Forward root to index.html so client-side routing can work
         registry.addViewController("/").setViewName("forward:/index.html");
-        registry.addViewController("/{spring:[^\\.]*}").setViewName("forward:/index.html");
-        // Removed problematic pattern "/**/{spring:[^\\.]*}" which is not supported by
-        // the PathPatternParser (caused "No more pattern data allowed after **" errors).
-        // A SPA-forwarding filter will handle multi-segment client-side routes instead.
+
+        // NOTE: Removed the single-segment SPA forward mapping because it intercepted
+        // server-side routes such as '/actuator' and caused actuator to return 404.
+        // If you want SPA forwarding for client routes, we should implement a robust
+        // solution that excludes server-side prefixes (e.g. 'api', 'actuator') without
+        // using regex patterns that may conflict with server mappings.
     }
 
     @Override
