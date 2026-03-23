@@ -18,7 +18,7 @@
         <org.projectlombok.version>1.18.42</org.projectlombok.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <spring.version>6.2.5</spring.version>
-        <spring-security.version>6.4.4</spring-security.version>
+        <spring-security.version>6.5.9</spring-security.version>
         <jakarta.servlet.jsp.jstl-api.version>3.0.2</jakarta.servlet.jsp.jstl-api.version>
         <junit.version>5.12.1</junit.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
