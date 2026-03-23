@@ -33,3 +33,6 @@ README.html
 node_modules/
 core/
 /build.log
+web/.angular/
+web/dist/
+web/README.md
