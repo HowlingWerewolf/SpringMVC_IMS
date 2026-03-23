@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>org.ims.core</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <parent>
         <groupId>org.ims</groupId>
@@ -124,10 +123,6 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.tomcat.maven</groupId>-->
-<!--                <artifactId>tomcat7-maven-plugin</artifactId>-->
-<!--            </plugin>-->
             <!-- Allow running with `mvn spring-boot:run` from this module -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
