@@ -32,7 +32,7 @@
         <slf4j.version>2.0.17</slf4j.version>
         <mockito-core.version>5.14.2</mockito-core.version>
         <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
-        <commons-lang.version>2.6</commons-lang.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
         <flyway-database-postgresql.version>11.6.0</flyway-database-postgresql.version>
     </properties>
 
@@ -114,10 +114,12 @@
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <!-- Source: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
             <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons-lang.version}</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
