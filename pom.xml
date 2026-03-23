@@ -21,7 +21,7 @@
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
-        <hibernate-core.version>6.6.13.Final</hibernate-core.version>
+        <hibernate-core.version>6.6.44.Final</hibernate-core.version>
         <postgresql-jdbc.version>42.7.10</postgresql-jdbc.version>
         <mockito.version>1.10.19</mockito.version>
         <spring-boot-starter.version>4.0.4</spring-boot-starter.version>
