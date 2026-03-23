@@ -15,21 +15,21 @@
         <jdk.version>25</jdk.version>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
+        <spring-boot-starter.version>4.0.4</spring-boot-starter.version>
         <org.projectlombok.version>1.18.42</org.projectlombok.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <junit.version>5.12.1</junit.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
         <hibernate-core.version>6.6.44.Final</hibernate-core.version>
-        <postgresql-jdbc.version>42.7.10</postgresql-jdbc.version>
-        <mockito.version>1.10.19</mockito.version>
-        <spring-boot-starter.version>4.0.4</spring-boot-starter.version>
-        <slf4j.version>2.0.17</slf4j.version>
-        <mockito-core.version>5.14.2</mockito-core.version>
         <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
-        <commons-lang3.version>3.20.0</commons-lang3.version>
+        <postgresql-jdbc.version>42.7.10</postgresql-jdbc.version>
         <flyway-database-postgresql.version>11.6.0</flyway-database-postgresql.version>
+        <mockito.version>1.10.19</mockito.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <junit.version>5.12.1</junit.version>
+        <mockito-core.version>5.14.2</mockito-core.version>
     </properties>
 
     <modules>
