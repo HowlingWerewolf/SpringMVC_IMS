@@ -19,8 +19,6 @@
         <org.projectlombok.version>1.18.42</org.projectlombok.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
-        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
-        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
         <hibernate-core.version>7.3.0.Final</hibernate-core.version>
         <hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
         <postgresql-jdbc.version>42.7.10</postgresql-jdbc.version>
@@ -79,6 +77,11 @@
                 <version>${spring-boot-starter.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>2.21.2</version>
@@ -88,22 +91,6 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>2.21.2</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>jakarta.servlet</groupId>-->
-<!--                <artifactId>jakarta.servlet-api</artifactId>-->
-<!--                <version>${jakarta.servlet-api.version}</version>-->
-<!--                <scope>provided</scope>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.hibernate</groupId>-->
-<!--                <artifactId>hibernate-validator</artifactId>-->
-<!--                <version>${hibernate-validator.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>jakarta.validation</groupId>-->
-<!--                <artifactId>jakarta.validation-api</artifactId>-->
-<!--                <version>3.1.1</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
