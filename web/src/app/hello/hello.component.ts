@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-hello',
-  template: `<h2>{{message}}</h2>`
+    selector: 'app-hello',
+    template: `<h2>{{message}}</h2>`,
+    standalone: false
 })
 export class HelloComponent {
   message = 'Loading...';

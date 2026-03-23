@@ -3,20 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-products',
-  template: `
+    selector: 'app-products',
+    template: `
     <h1>Products</h1>
-    <table *ngIf="products?.length">
-      <tr><th>Name</th><th>Price</th><th></th></tr>
-      <tr *ngFor="let p of products">
-        <td>{{p.description}}</td>
-        <td>{{p.price | currency}}</td>
-        <td><button (click)="removeProduct(p.id)">Remove</button></td>
-      </tr>
-    </table>
-
-    <div *ngIf="!products">Loading...</div>
-
+    @if (products?.length) {
+      <table>
+        <tr><th>Name</th><th>Price</th><th></th></tr>
+        @for (p of products; track p) {
+          <tr>
+            <td>{{p.description}}</td>
+            <td>{{p.price | currency}}</td>
+            <td><button (click)="removeProduct(p.id)">Remove</button></td>
+          </tr>
+        }
+      </table>
+    }
+    
+    @if (!products) {
+      <div>Loading...</div>
+    }
+    
     <h2>Add product</h2>
     <form (ngSubmit)="addProduct(); $event.preventDefault();">
       <label>
@@ -29,7 +35,7 @@ import { environment } from '../../environments/environment';
       </label>
       <button type="submit">Add</button>
     </form>
-
+    
     <h2>Increase prices</h2>
     <form (ngSubmit)="increasePrices(); $event.preventDefault();">
       <label>
@@ -38,7 +44,8 @@ import { environment } from '../../environments/environment';
       </label>
       <button type="submit">Increase</button>
     </form>
-  `
+    `,
+    standalone: false
 })
 export class ProductsComponent implements OnInit {
   products: any[] | null = null;
