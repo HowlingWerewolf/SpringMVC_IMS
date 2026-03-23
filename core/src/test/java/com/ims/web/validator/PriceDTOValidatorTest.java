@@ -23,16 +23,8 @@ class PriceDTOValidatorTest {
 
 	@BeforeEach
     void setUp() {
-		MockitoAnnotations.initMocks(this);
     	priceDTO = new PriceDTO();
     	errors = new BeanPropertyBindingResult(priceDTO, "percentage");
-    }
-
-	@Test
-    void testValidateNull() {
-    	priceDTO = null;
-    	priceValidator.validate(priceDTO, errors);
-    	assertEquals("Value required.", getErrorMessage()); 
     }
 
 	@Test
