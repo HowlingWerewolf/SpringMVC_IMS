@@ -26,37 +26,4 @@ public class HibernateConfiguration {
                 .build();
     }
 
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory() {
-//        final var vendorAdapter = new HibernateJpaVendorAdapter();
-//        vendorAdapter.setGenerateDdl(true);
-//
-//        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-//        factory.setJpaVendorAdapter(vendorAdapter);
-//        factory.setPackagesToScan("com.ims.data.model");
-//        factory.setDataSource(dataSource());
-//        factory.setJpaProperties(hibernateProperties());
-//        factory.afterPropertiesSet();
-//
-//        return factory.getObject();
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager transactionManager() {
-//        final var txManager = new JpaTransactionManager();
-//        txManager.setEntityManagerFactory(entityManagerFactory());
-//        return txManager;
-//    }
-//
-//    private Properties hibernateProperties() {
-//        final var properties = new Properties();
-//        properties.put("hibernate.globally_quoted_identifiers", "true");
-//        properties.put("hibernate.max_fetch_depth", "2");
-//        properties.put("hibernate.format_sql", "true");
-//        properties.put("hibernate.jdbc.use_get_generated_keys", "true");
-//        properties.put("hibernate.show_sql", "true");
-//        properties.put("hibernate.hbm2ddl.auto", "update");
-//        properties.put("javax.persistence.validation.mode", "none");
-//        return properties;
-//    }
 }

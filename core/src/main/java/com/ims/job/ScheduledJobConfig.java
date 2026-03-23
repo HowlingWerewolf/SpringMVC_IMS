@@ -1,4 +1,4 @@
-package com.ims;
+package com.ims.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import java.util.Date;
 @EnableScheduling
 @Service
 @Slf4j
-public class ScheduledTaskConfig {
+public class ScheduledJobConfig {
 	
     @Scheduled(fixedRate=60000)
     public void work() {
