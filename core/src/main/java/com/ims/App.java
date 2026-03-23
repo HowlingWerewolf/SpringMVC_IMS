@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -20,7 +23,24 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class App extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication app = new SpringApplication(App.class);
+        // Ensure embedded runs use the desired context path so actuator appears under
+        // /SpringMVC_IMS when started via main() or mvn spring-boot:run.
+        app.setDefaultProperties(java.util.Map.of("server.servlet.context-path", "/SpringMVC_IMS"));
+        app.run(args);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void onReady(ApplicationReadyEvent event) {
+        Environment env = event.getApplicationContext().getEnvironment();
+        String port = env.getProperty("local.server.port", env.getProperty("server.port", "8080"));
+        String ctx = env.getProperty("server.servlet.context-path", "");
+        if (ctx == null || ctx.isBlank()) {
+            ctx = "";
+        }
+        log.info("Application ready. Actuator base URL: http://localhost:" + port + ctx + "/actuator");
+
+        doFlywayMigration();
     }
 
     @Override
@@ -37,17 +57,7 @@ public class App extends SpringBootServletInitializer {
         // fail fast so the missing root WebApplicationContext error is visible
         // and the deployment can be corrected.
         super.onStartup(servletContext);
-        final Flyway flyway = Flyway.configure()
-                .dataSource("jdbc:postgresql://host.docker.internal:5432/postgres",
-                        "postgres", "example")
-                .validateMigrationNaming(true)
-                .load();
-
-        log.info("Starting baseline table setup");
-        flyway.baseline();
-
-        log.info("Starting migration");
-        flyway.migrate();
+        doFlywayMigration();
     }
 
     /**
@@ -72,4 +82,19 @@ public class App extends SpringBootServletInitializer {
             }
         };
     }
+
+    private void doFlywayMigration() {
+        final Flyway flyway = Flyway.configure()
+                .dataSource("jdbc:postgresql://host.docker.internal:5432/postgres",
+                        "postgres", "example")
+                .validateMigrationNaming(true)
+                .load();
+
+        log.info("Starting baseline table setup");
+        flyway.baseline();
+
+        log.info("Starting migration");
+        flyway.migrate();
+    }
+
 }
