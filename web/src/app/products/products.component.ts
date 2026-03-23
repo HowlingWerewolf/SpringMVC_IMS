@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-products',
-  template: `
+    selector: 'app-products',
+    template: `
     <h1>Products</h1>
     <table *ngIf="products?.length">
       <tr><th>Name</th><th>Price</th><th></th></tr>
@@ -38,7 +38,8 @@ import { environment } from '../../environments/environment';
       </label>
       <button type="submit">Increase</button>
     </form>
-  `
+  `,
+    standalone: false
 })
 export class ProductsComponent implements OnInit {
   products: any[] | null = null;
