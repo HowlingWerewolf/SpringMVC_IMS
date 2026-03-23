@@ -21,8 +21,8 @@ public class HibernateConfiguration {
                 .create()
                 .url("jdbc:postgresql://host.docker.internal:5432/postgres")
                 .driverClassName("org.postgresql.Driver")
-                .username("springims")
-                .password("springims")
+                .username("postgres")
+                .password("example")
                 .build();
     }
 
