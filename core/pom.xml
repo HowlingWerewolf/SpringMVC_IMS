@@ -127,44 +127,6 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-            <!-- Build frontend (Angular) and copy into webapp before packaging -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>npm-install</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <workingDirectory>${project.basedir}/../web</workingDirectory>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>--legacy-peer-deps</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm-build-and-deploy</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <workingDirectory>${project.basedir}/../web</workingDirectory>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>deploy</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
