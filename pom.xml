@@ -187,26 +187,6 @@
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
-
-                <!-- For Tomcat -->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>${tomcat7-maven-plugin.version}</version>
-                    <configuration>
-                        <path>/SpringMVC_IMS</path>
-                    </configuration>
-                </plugin>
-
-                <!-- Allow running with `mvn spring-boot:run` from this module -->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>${tomcat7-maven-plugin.version}</version>
-                    <configuration>
-                        <path>/SpringMVC_IMS</path>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
