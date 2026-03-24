@@ -27,7 +27,7 @@ public class ProductService {
     	final List<Product> products = productDaoImpl.queryAllAsList();
         if (products != null) {
             for (final Product product : products) {
-                double newPrice = product.getPrice() * (100 + percentage)/100;
+                double newPrice = product.getPrice() * (100 + percentage) / 100;
                 product.setPrice(newPrice);
                 productDaoImpl.update(product);
             }
