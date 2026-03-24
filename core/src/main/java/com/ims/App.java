@@ -57,7 +57,6 @@ public class App extends SpringBootServletInitializer {
         // fail fast so the missing root WebApplicationContext error is visible
         // and the deployment can be corrected.
         super.onStartup(servletContext);
-        doFlywayMigration();
     }
 
     /**
