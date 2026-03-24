@@ -7,20 +7,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class ActuatorSecurityConfig {
+public class ActuatorSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain actuatorSecurity(HttpSecurity http) {
         // TODO: Make actuator endpoints secure for production (restrict to admin role / separate management port)
-        // For now, permit all access to /actuator/** as requested.
-        // Use servlet path matching so this works whether the app is run embedded or deployed
-        // under a servlet context path (e.g. /SpringMVC_IMS). We check the servlet path which
-        // excludes the container context path.
+        // Permits all access to /actuator/**
         http
-            .requestMatcher(request -> {
-                String servletPath = request.getServletPath();
-                return servletPath != null && servletPath.startsWith("/actuator");
-            })
+            .securityMatcher("/actuator/**")
             .authorizeHttpRequests(auth -> auth
                 .anyRequest().permitAll()
             )

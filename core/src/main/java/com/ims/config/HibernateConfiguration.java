@@ -1,4 +1,4 @@
-package com.ims;
+package com.ims.config;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
