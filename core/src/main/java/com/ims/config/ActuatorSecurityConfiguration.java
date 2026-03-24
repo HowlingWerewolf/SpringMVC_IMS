@@ -11,7 +11,6 @@ public class ActuatorSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain actuatorSecurity(HttpSecurity http) {
-        // TODO: Make actuator endpoints secure for production (restrict to admin role / separate management port)
         // Permits all access to /actuator/**
         http
             .securityMatcher("/actuator/**")
