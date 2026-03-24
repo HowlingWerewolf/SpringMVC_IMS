@@ -40,7 +40,7 @@ public class App extends SpringBootServletInitializer {
         }
         log.info("Application ready. Actuator base URL: http://localhost:" + port + ctx + "/actuator");
 
-        doFlywayMigration();
+        doFlywayMigration(env);
     }
 
     @Override
@@ -82,10 +82,22 @@ public class App extends SpringBootServletInitializer {
         };
     }
 
-    private void doFlywayMigration() {
+    private void doFlywayMigration(Environment env) {
+        // Prefer explicit Flyway properties, then fall back to datasource properties.
+        String url = env.getProperty("spring.flyway.url",
+                env.getProperty("spring.datasource.url", "jdbc:postgresql://host.docker.internal:5432/postgres"));
+        String user = env.getProperty("spring.flyway.user",
+                env.getProperty("spring.datasource.username", "postgres"));
+        String pass = env.getProperty("spring.flyway.password",
+                env.getProperty("spring.datasource.password", "example"));
+
+        if (url == null || url.isBlank()) {
+            log.warn("No Flyway JDBC URL configured; skipping Flyway migrations");
+            return;
+        }
+
         final Flyway flyway = Flyway.configure()
-                .dataSource("jdbc:postgresql://host.docker.internal:5432/postgres",
-                        "postgres", "example")
+                .dataSource(url, user, pass)
                 .validateMigrationNaming(true)
                 .load();
 
