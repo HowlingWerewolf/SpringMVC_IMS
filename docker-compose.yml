@@ -25,3 +25,12 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+
+  web:
+    build:
+      context: ./
+      dockerfile: ./web/Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - tomcat

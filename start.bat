@@ -1,3 +1,8 @@
+call mvn clean package
+
+REM jump out if case of error
+if %errorlevel% neq 0 exit /b %errorlevel%
+
 cd web
 call npm install
 
@@ -14,4 +19,4 @@ call npm run build
 REM jump out if case of error
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call ng serve
+call docker compose up
