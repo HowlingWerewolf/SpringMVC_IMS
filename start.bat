@@ -1,9 +1,9 @@
-call be_build.bat
+call build_scripts/be_build.bat
 
 REM jump out if case of error
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-call fe_build.bat
+call build_scripts/fe_build.bat
 
 REM jump out if case of error
 if %errorlevel% neq 0 exit /b %errorlevel%
