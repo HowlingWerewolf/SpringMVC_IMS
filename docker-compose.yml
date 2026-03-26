@@ -25,3 +25,21 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        DIST_DIR: dist/browser
+    ports:
+      # map host 4200 to container 80 (nginx default)
+      - "4200:80"
+    depends_on:
+      - tomcat
+    healthcheck:
+      # Test that the built index.html exists and is non-empty inside the container
+      test: [ "CMD", "test", "-s", "/usr/share/nginx/html/index.html" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
