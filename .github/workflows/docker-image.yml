@@ -5,12 +5,49 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
+    # Common values taken from GitHub Secrets. Add the following secrets to your repo settings.
+    env:
+      # TODO: Add GitHub secret AWS_REGION
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      # TODO: Add GitHub secret AWS_ACCOUNT_ID
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      # TODO: Add GitHub secret ECR_REPOSITORY
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        # TODO: Add GitHub secret AWS_ACCESS_KEY_ID
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # TODO: Add GitHub secret AWS_SECRET_ACCESS_KEY
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # TODO: Add GitHub secret AWS_REGION
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Create ECR repository if not exists
+      run: |
+        aws ecr describe-repositories --repository-names "$ECR_REPOSITORY" || \
+          aws ecr create-repository --repository-name "$ECR_REPOSITORY"
+
+    - name: Build, tag and push Docker image to ECR
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        set -e
+        ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+        IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+        echo "Building image $IMAGE"
+        docker build . --file Dockerfile --tag "$IMAGE"
+        docker push "$IMAGE"
+
+    - name: Output image URI
+      run: |
+        echo "Image pushed: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${{ github.sha }}"
