@@ -1,0 +1,50 @@
+version: '3.8'
+
+# Local override file that starts a Postgres container for local development.
+# Usage:
+# docker-compose -f docker-compose.local.yml up -d
+
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+      args:
+        # allow overriding the postgres base image/version at build time
+        POSTGRES_VERSION: 17.8-alpine3.23
+    restart: always
+    ports:
+      - "5432:5432"
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      # strictly for local usage, do not push any password to git in real life
+      POSTGRES_PASSWORD: example
+
+  # When running locally, ensure tomcat waits for postgres to start.
+  tomcat:
+    build:
+      context: ./
+      dockerfile: ./tomcat/Dockerfile
+    ports:
+      - "8080:8080"
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        DIST_DIR: dist/browser
+    ports:
+      # map host 4200 to container 80 (nginx default)
+      - "4200:80"
+    depends_on:
+      - tomcat
+    healthcheck:
+      # Test that the built index.html exists and is non-empty inside the container
+      test: [ "CMD", "test", "-s", "/usr/share/nginx/html/index.html" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+

@@ -1,19 +1,30 @@
-# Use lightweight nginx to serve pre-built Angular files copied from the host
-FROM nginx:alpine
+FROM nginx:1.26-alpine
+
+# Build arg pointing to the local build output directory (relative to build context)
+ARG DIST_DIR=dist/browser
 
 # Remove default nginx static files
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy built Angular app (expecting `dist/` present in build context)
-# The developer will run `npm run build` locally which typically produces `dist/browser`.
-# Allow overriding which dist subfolder to copy via build-arg `DIST_DIR`.
-# Default changed to dist/browser as a sensible default for this project.
-ARG DIST_DIR=dist/browser
+# Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy the built Angular app to nginx root. We'll also normalize the base href
+# in index.html to '/' so the app works when served from the container root.
+RUN mkdir -p /usr/share/nginx/html
 COPY ${DIST_DIR}/ /usr/share/nginx/html/
 
-# Copy custom nginx config to enable SPA fallback (client-side routing)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# If the built index.html contains references with the /SpringMVC_IMS/ prefix,
+# normalize them to root '/' so assets and routes work when serving from '/'.
+RUN if [ -f /usr/share/nginx/html/index.html ]; then \
+	  sed -i 's|<base href="/SpringMVC_IMS/"|<base href="/"|g' /usr/share/nginx/html/index.html || true; \
+	  sed -i 's|/SpringMVC_IMS/|/|g' /usr/share/nginx/html/index.html || true; \
+	fi
 
 EXPOSE 80
 
+# Use the default nginx foreground command
 CMD ["nginx", "-g", "daemon off;"]
+
+
+
