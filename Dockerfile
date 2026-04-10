@@ -12,13 +12,12 @@
 # docker rm tmp
 
 ######### Backend build (Maven) #########
-FROM maven:3.9.4-eclipse-temurin-17 AS backend-builder
+FROM maven:3.9.14-eclipse-temurin-25-alpine AS backend-builder
 WORKDIR /workspace
 
 # Copy only what we need to leverage build cache where possible
 COPY pom.xml ./
 COPY core/pom.xml ./core/pom.xml
-COPY tomcat/pom.xml ./tomcat/pom.xml
 
 # Copy the rest of the source code
 COPY . ./
@@ -27,16 +26,16 @@ COPY . ./
 RUN mvn -B -DskipTests package
 
 ######### Frontend build (Node / Angular) #########
-FROM node:18-alpine AS frontend-builder
+FROM node:25-alpine3.22 AS frontend-builder
 WORKDIR /workspace/web
 
 # Copy frontend sources
-COPY web/package*.json ./web/
-COPY web/ ./web/
+COPY web/package*.json ./
+COPY web/ ./
 
-WORKDIR /workspace/web
 # Install deps and build. We use npm ci for reproducible installs.
-RUN npm ci --legacy-peer-deps && npm run build -- --output-path=dist/browser
+RUN npm ci
+RUN npm run build
 
 ######### Artifacts image #########
 FROM alpine:3.18 AS artifacts
