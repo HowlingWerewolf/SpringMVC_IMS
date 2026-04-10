@@ -19,13 +19,5 @@ Thanks to flyway, the basic tables are set up by default.
   - migrated jsp to angular 21
 
 Start:
-    Option A: 
-        - frontend by
-            fe_start.bat
-        - backend by
-            running the App.java
-
-    Option B:
-        as a docker container, simply run start.bat which builds the project then the images and runs the container. 
-
-The application will be available at http://localhost:4200
+    start.bat builds backend and frontend, then start backend and frontend servers as docker containers.
+  http://localhost:4200
