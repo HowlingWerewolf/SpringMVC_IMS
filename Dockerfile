@@ -26,7 +26,7 @@ COPY . ./
 RUN mvn -B -DskipTests package
 
 ######### Frontend build (Node / Angular) #########
-FROM node:18-alpine AS frontend-builder
+FROM node:25-alpine3.22 AS frontend-builder
 WORKDIR /workspace/web
 
 # Copy frontend sources
