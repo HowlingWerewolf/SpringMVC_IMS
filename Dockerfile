@@ -30,12 +30,10 @@ FROM node:18-alpine AS frontend-builder
 WORKDIR /workspace/web
 
 # Copy frontend sources
-COPY web/package*.json ./web/
-COPY web/ ./web/
+COPY web/package*.json ./
+COPY web/ ./
 
-WORKDIR /workspace/web
 # Install deps and build. We use npm ci for reproducible installs.
-RUN npm install
 RUN npm ci
 RUN npm run build
 
